@@ -9,13 +9,11 @@ import androidx.room.Update
 @Dao
 interface ReminderDao {
 
-    @Query("select * from reminder")
+    @Query("select * from Reminder")
     fun get() : List<Reminder>
 
-    @Query("delete from reminder")
+    @Query("delete from Reminder")
     fun deleteAll()
-
-
 
     @Insert
     fun insert(data: Reminder): Long

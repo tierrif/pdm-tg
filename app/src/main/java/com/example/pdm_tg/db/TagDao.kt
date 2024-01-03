@@ -9,13 +9,11 @@ import androidx.room.Update
 @Dao
 interface TagDao {
 
-    @Query("select * from tag")
+    @Query("select * from Tag")
     fun get() : List<Tag>
 
-    @Query("delete from tag")
+    @Query("delete from Tag")
     fun deleteAll()
-
-
 
     @Insert
     fun insert(data: Tag): Long

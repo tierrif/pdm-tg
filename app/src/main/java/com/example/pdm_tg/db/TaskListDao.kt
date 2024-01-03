@@ -9,13 +9,11 @@ import androidx.room.Update
 @Dao
 interface TaskListDao {
 
-    @Query("select * from tasklist")
+    @Query("select * from TaskList")
     fun get() : List<TaskList>
 
     @Query("delete from TaskList")
     fun deleteAll()
-
-
 
     @Insert
     fun insert(data: TaskList): Long

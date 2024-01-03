@@ -9,11 +9,11 @@ import androidx.room.Update
 @Dao
 interface TaskDao {
 
-    @Query("select * from task")
-    abstract fun get() : List<Task>
+    @Query("select * from Task")
+    fun get() : List<Task>
 
-    @Query("delete from task")
-    abstract fun deleteAll()
+    @Query("delete from Task")
+    fun deleteAll()
 
     @Insert
     fun insert(data: Task): Long
