@@ -16,7 +16,7 @@ abstract class AppDB : RoomDatabase() {
             instance ?: buildDatabase(context.applicationContext).also { instance = it}}
 
         private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context.applicationContext, AppDB::class.java, "chatapp.db")
+            Room.databaseBuilder(context.applicationContext, AppDB::class.java, "todoapp.db")
                 .allowMainThreadQueries() // for now :)
                 .fallbackToDestructiveMigration()
                 .build()
