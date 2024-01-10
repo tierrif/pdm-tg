@@ -28,10 +28,8 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/button"
                 android:src="@drawable/baseline_wb_sunny_24"
-                app:layout_constraintBaseline_toBottomOf="parent"
-                app:layout_constraintBaseline_toStartOf="parent"
-                app:layout_constraintBaseline_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -61,10 +59,8 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/button"
                 android:src="@drawable/baseline_wb_sunny_24"
-                app:layout_constraintBaseline_toBottomOf="parent"
-                app:layout_constraintBaseline_toStartOf="parent"
-                app:layout_constraintBaseline_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
