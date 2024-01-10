@@ -4,17 +4,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".db.MainFragment">
+    tools:context=".MainFragment">
 
-
-    <ListView
-        android:id="@+id/mainSection"
+    <LinearLayout
+        android:id="@+id/defaultLists"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBaseline_toTopOf="@id/rv">
+        android:orientation="vertical">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/myDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/homeButtonHeight"
+            android:padding="@dimen/default_padding">
 
-    </ListView>
+            <ImageView
+                android:id="@+id/buttonImageMyDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/button"
+                android:src="@drawable/baseline_wb_sunny_24"
+                app:layout_constraintBaseline_toBottomOf="parent"
+                app:layout_constraintBaseline_toStartOf="parent"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/buttonTextMyDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:text="@string/my_day"
+                app:layout_constraintBaseline_toBottomOf="parent"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buttonImageMyDay"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/planned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/homeButtonHeight"
+            android:padding="@dimen/default_padding">
+
+            <ImageView
+                android:id="@+id/buttonImagePlanned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/button"
+                android:src="@drawable/baseline_wb_sunny_24"
+                app:layout_constraintBaseline_toBottomOf="parent"
+                app:layout_constraintBaseline_toStartOf="parent"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/buttonTextPlanned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:text="@string/planned"
+                app:layout_constraintBaseline_toBottomOf="parent"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/buttonImagePlanned"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
 
@@ -22,10 +88,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainSection" />
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/defaultLists" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
