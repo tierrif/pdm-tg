@@ -5,7 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Task::class], version = 1)
+@Database(
+    entities = [Task::class, TaskList::class, Reminder::class, Tag::class, TaskTag::class],
+    version = 1
+)
 abstract class AppDB : RoomDatabase() {
 
     companion object {

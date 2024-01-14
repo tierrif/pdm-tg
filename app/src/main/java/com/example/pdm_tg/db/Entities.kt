@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     foreignKeys = [ForeignKey(
-        TaskList::class, ["idTask"], ["idTaskList"],
+        TaskList::class, ["idTaskList"], ["idTask"],
         ForeignKey.CASCADE, ForeignKey.CASCADE
     )]
 )
@@ -17,7 +17,7 @@ data class Task(
 
 @Entity(
     foreignKeys = [ForeignKey(
-        Task::class, ["idReminder"], ["idTask"],
+        Task::class, ["idTask"], ["idReminder"],
         ForeignKey.CASCADE, ForeignKey.CASCADE
     )]
 )
