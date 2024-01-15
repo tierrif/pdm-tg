@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var context: Context
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.w("ONCREATE", "ONCREATE")
         setContentView(R.layout.activity_main)
 
         this.context = applicationContext
@@ -23,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         val navController = navHost.findNavController()
         val appBarConfig = AppBarConfiguration(navController.graph)
 
-        /*val toolbar = findViewById<Toolbar>(R.id.appBar)
+        val toolbar = findViewById<Toolbar>(R.id.appBar)
 
         setSupportActionBar(toolbar)
-        toolbar.setupWithNavController(navController, appBarConfig)*/
+        toolbar.setupWithNavController(navController, appBarConfig)
     }
 }

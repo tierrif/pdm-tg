@@ -15,11 +15,9 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = FragmentMainBinding.inflate(inflater).also {
         binding = it
-        Log.w("ONCREATEVIEW", "ONCREATEVIEW")
     }.root
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.w("ONCREATE FRAGMENT", "ONCREATE FRAGMENT")
     }
 }
