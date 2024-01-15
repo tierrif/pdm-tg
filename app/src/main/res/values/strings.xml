@@ -5,4 +5,5 @@
     <string name="button">button</string>
     <string name="my_day">My Day</string>
     <string name="planned">Planned</string>
+    <string name="new_to_do">New To-Do</string>
 </resources>

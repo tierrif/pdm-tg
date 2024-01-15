@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainFragment">
+    tools:context=".fragments.MainFragment">
 
     <LinearLayout
         android:id="@+id/defaultLists"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="7.5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -20,14 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/homeButtonHeight"
-            android:padding="@dimen/default_padding">
+            android:padding="@dimen/default_padding"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/buttonImageMyDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/home_icon_size"
+                android:layout_height="@dimen/home_icon_size"
                 android:contentDescription="@string/button"
-                android:src="@drawable/baseline_wb_sunny_24"
+                android:src="@drawable/day"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_margin"
+                android:textSize="@dimen/mainTextSize"
                 android:text="@string/my_day"
                 app:layout_constraintBaseline_toBottomOf="parent"
                 app:layout_constraintBaseline_toTopOf="parent"
@@ -51,14 +56,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/homeButtonHeight"
-            android:padding="@dimen/default_padding">
+            android:padding="@dimen/default_padding"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/buttonImagePlanned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/home_icon_size"
+                android:layout_height="@dimen/home_icon_size"
                 android:contentDescription="@string/button"
-                android:src="@drawable/baseline_wb_sunny_24"
+                android:src="@drawable/planned"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_margin"
+                android:textSize="@dimen/mainTextSize"
                 android:text="@string/planned"
                 app:layout_constraintBaseline_toBottomOf="parent"
                 app:layout_constraintBaseline_toTopOf="parent"
@@ -78,6 +87,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
+    <View
+        android:id="@+id/separator"
+        app:layout_constraintTop_toBottomOf="@id/defaultLists"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_height="2dp"
+        android:background="@color/light_gray"/>
+
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/rv"
@@ -86,6 +103,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/defaultLists" />
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/new_to_do" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
