@@ -96,7 +96,6 @@
         android:background="@color/light_gray"/>
 
     <androidx.recyclerview.widget.RecyclerView
-
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,11 +105,35 @@
         app:layout_constraintTop_toBottomOf="@+id/separator" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addContact"
+        android:id="@+id/newList"
+        android:layout_width="@dimen/mini_fab_size"
+        android:layout_height="@dimen/mini_fab_size"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/mini_fab_margin"
+        android:contentDescription="@string/new_list"
+        app:layout_constraintBottom_toTopOf="@id/newTodo"
+        app:layout_constraintEnd_toEndOf="@+id/newTodo"
+        app:layout_constraintStart_toStartOf="@+id/newTodo"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newTodo"
+        android:layout_width="@dimen/mini_fab_size"
+        android:layout_height="@dimen/mini_fab_size"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/mini_fab_margin"
+        android:contentDescription="@string/new_to_do"
+        app:layout_constraintBottom_toTopOf="@id/newTodoOrList"
+        app:layout_constraintEnd_toEndOf="@+id/newTodoOrList"
+        app:layout_constraintStart_toStartOf="@+id/newTodoOrList"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newTodoOrList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/new_to_do" />
