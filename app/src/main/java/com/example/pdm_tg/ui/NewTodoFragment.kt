@@ -1,18 +1,18 @@
-package com.example.pdm_tg.fragments
+package com.example.pdm_tg.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.pdm_tg.databinding.FragmentNewListBinding
+import com.example.pdm_tg.databinding.FragmentNewTodoBinding
 
-class NewListFragment : Fragment() {
-    private lateinit var binding: FragmentNewListBinding
+class NewTodoFragment : Fragment() {
+    private lateinit var binding: FragmentNewTodoBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = FragmentNewListBinding.inflate(inflater).also {
+    ) = FragmentNewTodoBinding.inflate(inflater).also {
         binding = it
     }.root
 }

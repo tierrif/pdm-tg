@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.MainFragment">
+    tools:context=".ui.MainFragment">
 
     <LinearLayout
         android:id="@+id/defaultLists"
@@ -95,6 +95,16 @@
         android:layout_height="2dp"
         android:background="@color/light_gray"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/newList"
+        app:icon="@drawable/add"
+        android:text="@string/new_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv"
+        android:layout_margin="@dimen/default_margin" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
@@ -104,7 +114,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/separator" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!-- TODO: Se houver tempo, fazer FAB animado com 2 botões assim -->
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newList"
         android:layout_width="@dimen/mini_fab_size"
         android:layout_height="@dimen/mini_fab_size"
@@ -126,7 +137,7 @@
         app:layout_constraintBottom_toTopOf="@id/newTodoOrList"
         app:layout_constraintEnd_toEndOf="@+id/newTodoOrList"
         app:layout_constraintStart_toStartOf="@+id/newTodoOrList"
-        app:srcCompat="@android:drawable/ic_dialog_map" />
+        app:srcCompat="@android:drawable/ic_dialog_map" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newTodoOrList"
@@ -136,6 +147,7 @@
         android:layout_marginBottom="@dimen/fab_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/todo_list"
         android:contentDescription="@string/new_to_do" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
