@@ -2,52 +2,67 @@ package com.example.pdm_tg.db
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
 
 @Entity(
     foreignKeys = [ForeignKey(
-        TaskList::class, ["idTaskList"], ["idTask"],
-        ForeignKey.CASCADE, ForeignKey.CASCADE
+        entity = TaskList::class,
+        parentColumns = ["id"],
+        childColumns = ["taskListId"],
+        onDelete = CASCADE,
+        onUpdate = CASCADE,
     )]
 )
 data class Task(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
-    @PrimaryKey(autoGenerate = true) val idTask: Long = 0
+    val taskListId: Long,
 )
 
 @Entity(
     foreignKeys = [ForeignKey(
-        Task::class, ["idTask"], ["idReminder"],
-        ForeignKey.CASCADE, ForeignKey.CASCADE
+        entity = Task::class,
+        parentColumns = ["id"],
+        childColumns = ["taskId"],
+        onDelete = CASCADE,
+        onUpdate = CASCADE,
     )]
 )
 data class Reminder(
-    @PrimaryKey(autoGenerate = true) val idReminder: Long = 0
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val taskId: Long,
 )
 
 @Entity
 data class Tag(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val description: String,
-    @PrimaryKey(autoGenerate = true) val idTag: Long = 0
 )
 
 @Entity
 data class TaskList(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val listName: String,
-    @PrimaryKey(autoGenerate = true) val idTaskList: Long = 0
 )
 
 @Entity(
     foreignKeys = [ForeignKey(
-        Task::class, ["idTask"], ["idTask"],
-        ForeignKey.CASCADE, ForeignKey.CASCADE
+        entity = Task::class,
+        parentColumns = ["id"],
+        childColumns = ["taskId"],
+        onDelete = CASCADE,
+        onUpdate = CASCADE,
     ), ForeignKey(
-        Tag::class, ["idTag"], ["idTag"],
-        ForeignKey.CASCADE, ForeignKey.CASCADE
+        entity = Tag::class,
+        parentColumns = ["id"],
+        childColumns = ["tagId"],
+        onDelete = CASCADE,
+        onUpdate = CASCADE,
     )]
 )
 data class TaskTag(
-    val idTask: Int,
-    val idTag: Int,
-    @PrimaryKey(autoGenerate = true) val idTaskList: Long = 0
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val taskId: Int,
+    val tagId: Int,
 )
