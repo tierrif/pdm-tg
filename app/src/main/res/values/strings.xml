@@ -7,4 +7,8 @@
     <string name="planned">Planned</string>
     <string name="new_to_do">New To-Do</string>
     <string name="new_list">New List</string>
+    <string name="list_name">List Name</string>
+    <string name="save">Save</string>
+    <string name="untitled">Untitled</string>
+    <string name="custom">Custom</string>
 </resources>

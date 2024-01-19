@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.MainFragment">
+    tools:context=".ui.tasklistlist.TaskListListFragment">
 
     <LinearLayout
         android:id="@+id/defaultLists"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@id/defaultLists"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/default_margin"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/default_height"
         android:background="@color/light_gray"/>
 
     <com.google.android.material.button.MaterialButton
@@ -102,17 +102,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv"
+        app:layout_constraintTop_toBottomOf="@id/recyclerView"
         android:layout_margin="@dimen/default_margin" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separator" />
+        app:layout_constraintTop_toBottomOf="@+id/separator"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <!-- TODO: Se houver tempo, fazer FAB animado com 2 botões assim -->
     <!--<com.google.android.material.floatingactionbutton.FloatingActionButton

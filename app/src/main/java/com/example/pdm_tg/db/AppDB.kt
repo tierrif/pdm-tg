@@ -11,6 +11,16 @@ import androidx.room.RoomDatabase
 )
 abstract class AppDB : RoomDatabase() {
 
+    abstract fun reminderDao(): ReminderDao
+
+    abstract fun tagDao(): TagDao
+
+    abstract fun taskDao(): TaskDao
+
+    abstract fun taskListDao(): TaskListDao
+
+    abstract fun taskTagDao(): TaskTagDao
+
     companion object {
         @Volatile
         private var instance: AppDB? = null

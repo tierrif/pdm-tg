@@ -15,9 +15,9 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Task(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val taskListId: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 
 @Entity(
@@ -30,20 +30,20 @@ data class Task(
     )]
 )
 data class Reminder(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val taskId: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 
 @Entity
 data class Tag(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val description: String,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 
 @Entity
 data class TaskList(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val listName: String,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 
 @Entity(
@@ -62,7 +62,7 @@ data class TaskList(
     )]
 )
 data class TaskTag(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val taskId: Int,
     val tagId: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )

@@ -10,4 +10,5 @@
     <dimen name="mini_fab_size">45dp</dimen>
     <dimen name="standard_55">55dp</dimen>
     <dimen name="standard_105">105dp</dimen>
+    <dimen name="default_height">2dp</dimen>
 </resources>
