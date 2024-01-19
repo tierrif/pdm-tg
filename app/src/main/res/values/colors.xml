@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="androidPurple">#6750a4</color>
     <color name="light_gray">#eeeeee</color>
+    <color name="dark_gray">#777777</color>
 </resources>

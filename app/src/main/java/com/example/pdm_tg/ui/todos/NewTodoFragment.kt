@@ -153,12 +153,12 @@ class NewTodoFragment : Fragment() {
                     R.string.newTodoMissingData, Toast.LENGTH_SHORT).show()
             }
 
-            viewModel.newTask(
-                taskNameEditText.text.toString(), selectedTaskList, pickedDate!!
-            ).invokeOnCompletion {
-                lifecycleScope.launch {
-                    findNavController().popBackStack()
-                }
+            lifecycleScope.launch {
+                viewModel.newTask(
+                    taskNameEditText.text.toString(), selectedTaskList, pickedDate!!
+                ).join()
+
+                findNavController().popBackStack()
             }
         }
     }

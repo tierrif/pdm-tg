@@ -1,6 +1,5 @@
 package com.example.pdm_tg.db
 
-import android.icu.text.DateFormat.getDateTimeInstance
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -90,8 +89,8 @@ data class TaskTag(
  */
 class DateConverter {
     @TypeConverter
-    fun toDate(dateString: String): Date = getDateTimeInstance().parse(dateString)
+    fun toDate(dateLong: Long): Date = Date(dateLong)
 
     @TypeConverter
-    fun toTimestamp(date: Date): String = getDateTimeInstance().format(date)
+    fun toTimestamp(date: Date): Long = date.time
 }

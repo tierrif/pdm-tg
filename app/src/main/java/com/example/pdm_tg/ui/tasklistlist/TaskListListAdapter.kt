@@ -12,11 +12,9 @@ import com.example.pdm_tg.databinding.TaskListListItemBinding
 import com.example.pdm_tg.db.TaskList
 
 private val taskListDiffer = object : DiffUtil.ItemCallback<TaskList>() {
-    override fun areItemsTheSame(oldItem: TaskList, newItem: TaskList) =
-        oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: TaskList, newItem: TaskList) = oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: TaskList, newItem: TaskList) =
-        oldItem.listName == newItem.listName
+    override fun areContentsTheSame(oldItem: TaskList, newItem: TaskList) = oldItem == newItem
 }
 
 class TaskListViewHolder(
