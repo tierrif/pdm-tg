@@ -10,17 +10,18 @@ import androidx.room.Update
 @Dao
 interface TaskDao {
 
-    @Query("select * from Task")
+    @Query("select * from Task order by dateDue asc")
     fun get(): LiveData<List<Task>>
 
     @Query("delete from Task")
     fun deleteAll()
 
-    @Query("select * from Task where taskListId = :taskListId")
+    @Query("select * from Task where taskListId = :taskListId order by dateDue asc")
     fun getByList(taskListId: Long): LiveData<List<Task>>
 
     // https://stackoverflow.com/questions/14709661/sqlite-query-for-dates-equals-today
-    @Query("select * from Task where date(datetime(dateDue / 1000 , 'unixepoch')) = date('now')")
+    @Query("select * from Task where " +
+            "date(datetime(dateDue / 1000 , 'unixepoch')) = date('now') order by dateDue asc")
     fun getToday(): LiveData<List<Task>>
 
     @Insert

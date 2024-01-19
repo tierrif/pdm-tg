@@ -1,9 +1,11 @@
 package com.example.pdm_tg.ui.tasklist
 
+import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
@@ -13,6 +15,7 @@ import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.TaskItemBinding
 import com.example.pdm_tg.db.Task
 import com.google.android.material.checkbox.MaterialCheckBox
+import java.util.Calendar
 
 private val taskDiffer = object : DiffUtil.ItemCallback<Task>() {
     override fun areItemsTheSame(oldItem: Task, newItem: Task) = oldItem.id == newItem.id
@@ -31,6 +34,7 @@ class TaskViewHolder(
     private val checkbox = view.findViewById<MaterialCheckBox>(R.id.checkbox)
     private val taskName = view.findViewById<TextView>(R.id.taskName)
     private val taskDueDate = view.findViewById<TextView>(R.id.taskDueDate)
+    private val calendarIcon = view.findViewById<ImageView>(R.id.calendarIcon)
 
     init {
         binding.root.setOnClickListener {
@@ -67,6 +71,12 @@ class TaskViewHolder(
             DateUtils.WEEK_IN_MILLIS,
             DateUtils.FORMAT_ABBREV_RELATIVE,
         )
+
+        // If it's overdue, set the text to red.
+        if (task.dateDue.time < Calendar.getInstance().time.time) {
+            taskDueDate.setTextColor(view.context.resources.getColor(R.color.red, null))
+            calendarIcon.setImageResource(R.drawable.calendar_red)
+        }
     }
 }
 
