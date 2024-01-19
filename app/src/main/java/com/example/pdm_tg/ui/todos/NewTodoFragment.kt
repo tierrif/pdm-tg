@@ -153,6 +153,7 @@ class NewTodoFragment : Fragment() {
                     R.string.newTodoMissingData, Toast.LENGTH_SHORT).show()
             }
 
+            // TODO: check if pickedDate is being saved wrongly without time.
             lifecycleScope.launch {
                 viewModel.newTask(
                     taskNameEditText.text.toString(), selectedTaskList, pickedDate!!

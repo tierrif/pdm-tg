@@ -19,8 +19,8 @@ interface TaskDao {
     @Query("select * from Task where taskListId = :taskListId")
     fun getByList(taskListId: Long): LiveData<List<Task>>
 
-    // TODO: this won't work
-    @Query("select * from Task where dateDue >= CURRENT_DATE + \" 00:00:00\"")
+    // https://stackoverflow.com/questions/14709661/sqlite-query-for-dates-equals-today
+    @Query("select * from Task where date(datetime(dateDue / 1000 , 'unixepoch')) = date('now')")
     fun getToday(): LiveData<List<Task>>
 
     @Insert
