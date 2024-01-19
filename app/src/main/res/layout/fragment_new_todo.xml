@@ -42,6 +42,7 @@
         android:text="@string/selectDate"
         app:icon="@drawable/calendar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateField" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -54,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectDate">
 
+        <!--this is the actual edit text which takes the input-->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/taskNameEditText"
             android:layout_width="match_parent"
@@ -62,6 +64,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/taskListField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,12 +75,32 @@
         tools:layout_editor_absoluteX="15dp">
 
         <AutoCompleteTextView
-            android:id="@+id/filled_exposed_dropdown"
+            android:id="@+id/taskListEditText"
             android:hint="@string/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/save"
+        app:icon="@drawable/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskListField" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/clearTaskList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/clearList"
+        app:icon="@drawable/clear"
+        app:layout_constraintEnd_toStartOf="@id/save"
+        app:layout_constraintTop_toBottomOf="@+id/taskListField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

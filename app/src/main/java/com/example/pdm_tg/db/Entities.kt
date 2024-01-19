@@ -20,7 +20,7 @@ import java.util.Date
 )
 data class Task(
     val name: String,
-    @ColumnInfo(index = true) val taskListId: Long,
+    @ColumnInfo(index = true) val taskListId: Long?,
     val dateDue: Date,
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
@@ -49,7 +49,17 @@ data class Tag(
 data class TaskList(
     val listName: String,
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-)
+) {
+    /**
+     * Called by the ArrayAdapter responsible
+     * for displaying all task list names in
+     * the dropdown list upon creating a new
+     * task.
+     */
+    override fun toString(): String {
+        return listName
+    }
+}
 
 @Entity(
     foreignKeys = [ForeignKey(

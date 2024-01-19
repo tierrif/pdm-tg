@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentTaskListListBinding
 import com.example.pdm_tg.db.TaskList
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 
 class TaskListListFragment : Fragment() {
     private lateinit var binding: FragmentTaskListListBinding
@@ -41,11 +43,12 @@ class TaskListListFragment : Fragment() {
         // Render the RecyclerView.
         binding.recyclerView.adapter = adapter
 
-        // TODO: Make async
-        val taskLists = viewModel.getTaskLists()
+        lifecycleScope.launch {
+            val taskLists = viewModel.getTaskLists()
 
-        taskLists.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            taskLists.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
         }
 
         // Handle the FAB.

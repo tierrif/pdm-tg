@@ -9,6 +9,6 @@ import com.example.pdm_tg.db.TaskList
 class TaskListListViewModel(app: Application) : AndroidViewModel(app) {
     fun getTaskLists(): LiveData<List<TaskList>> {
         val taskListDao = AppDB(getApplication()).taskListDao()
-        return taskListDao.get()
+        return taskListDao.getLive()
     }
 }

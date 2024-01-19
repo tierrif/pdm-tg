@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentNewListBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 
 class NewListFragment : Fragment() {
     private lateinit var binding: FragmentNewListBinding
@@ -44,7 +47,11 @@ class NewListFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            viewModel.newTaskList(name.text.toString())
+            viewModel.newTaskList(name.text.toString()).invokeOnCompletion {
+                lifecycleScope.launch {
+                    findNavController().popBackStack()
+                }
+            }
         }
     }
 }

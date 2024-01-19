@@ -18,4 +18,7 @@
     <string name="list">List (optional)</string>
     <string name="badDate">You cannot set dates previous to the current date.</string>
     <string name="listNameEmpty">The list name cannot be empty.</string>
+    <string name="newTodoMissingData">The task name and the due date are mandatory.</string>
+    <string name="clear">Clear</string>
+    <string name="clearList">Clear Task List</string>
 </resources>

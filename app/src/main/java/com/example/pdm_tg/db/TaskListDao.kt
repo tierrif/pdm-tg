@@ -11,7 +11,10 @@ import androidx.room.Update
 interface TaskListDao {
 
     @Query("select * from TaskList")
-    fun get() : LiveData<List<TaskList>>
+    fun getLive() : LiveData<List<TaskList>>
+
+    @Query("select * from TaskList")
+    fun get(): List<TaskList>
 
     @Query("delete from TaskList")
     fun deleteAll()
