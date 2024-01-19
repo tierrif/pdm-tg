@@ -38,6 +38,12 @@ class NewListFragment : Fragment() {
         val saveBtn = requireActivity().findViewById<MaterialButton>(R.id.save)
         val name = requireActivity().findViewById<TextInputEditText>(R.id.listNameEditText)
         saveBtn.setOnClickListener {
+            if (name.text.isNullOrEmpty()) return@setOnClickListener Toast.makeText(
+                requireContext(),
+                R.string.listNameEmpty,
+                Toast.LENGTH_SHORT
+            ).show()
+
             viewModel.newTaskList(name.text.toString())
         }
     }

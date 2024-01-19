@@ -1,9 +1,13 @@
 package com.example.pdm_tg.db
 
+import android.icu.text.DateFormat.getDateTimeInstance
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import java.util.Date
 
 @Entity(
     foreignKeys = [ForeignKey(
@@ -16,7 +20,8 @@ import androidx.room.PrimaryKey
 )
 data class Task(
     val name: String,
-    val taskListId: Long,
+    @ColumnInfo(index = true) val taskListId: Long,
+    val dateDue: Date,
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 
@@ -30,7 +35,7 @@ data class Task(
     )]
 )
 data class Reminder(
-    val taskId: Long,
+    @ColumnInfo(index = true) val taskId: Long,
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 
@@ -62,7 +67,21 @@ data class TaskList(
     )]
 )
 data class TaskTag(
-    val taskId: Int,
-    val tagId: Int,
+    @ColumnInfo(index = true) val taskId: Int,
+    @ColumnInfo(index = true) val tagId: Int,
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
+
+/**
+ * This class is required to convert dates in
+ * the database so they are stored properly.
+ * It is referenced in the AppDB class in the
+ * TypeConverters annotation.
+ */
+class DateConverter {
+    @TypeConverter
+    fun toDate(dateString: String): Date = getDateTimeInstance().parse(dateString)
+
+    @TypeConverter
+    fun toTimestamp(date: Date): String = getDateTimeInstance().format(date)
+}

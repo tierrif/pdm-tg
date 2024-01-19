@@ -18,9 +18,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/listNameEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="25dp"
-            tools:layout_editor_absoluteY="35dp" />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

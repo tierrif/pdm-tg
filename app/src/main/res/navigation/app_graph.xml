@@ -42,6 +42,11 @@
             app:argType="string" />
 
         <argument
+            android:name="listId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+        <argument
             android:name="type"
             android:defaultValue="CUSTOM"
             app:argType="com.example.pdm_tg.ui.tasklistlist.TaskListListFragment$ListType" />

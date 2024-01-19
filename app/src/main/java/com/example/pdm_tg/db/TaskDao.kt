@@ -10,10 +10,17 @@ import androidx.room.Update
 interface TaskDao {
 
     @Query("select * from Task")
-    fun get() : List<Task>
+    fun get(): List<Task>
 
     @Query("delete from Task")
     fun deleteAll()
+
+    @Query("select * from Task where taskListId = :taskListId")
+    fun getByList(taskListId: Long): List<Task>
+
+    // https://stackoverflow.com/questions/45779210/sql-query-to-show-data-by-todaycurrent-date
+    @Query("select * from Task where dateDue >= CURRENT_DATE + \" 00:00:00\"")
+    fun getToday(): List<Task>
 
     @Insert
     fun insert(data: Task): Long

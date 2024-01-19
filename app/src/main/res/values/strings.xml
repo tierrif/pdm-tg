@@ -11,4 +11,11 @@
     <string name="save">Save</string>
     <string name="untitled">Untitled</string>
     <string name="custom">Custom</string>
+    <string name="pick">(pick)</string>
+    <string name="dueDate">Due Date</string>
+    <string name="selectDate">Select Date</string>
+    <string name="task_name">Task Name</string>
+    <string name="list">List (optional)</string>
+    <string name="badDate">You cannot set dates previous to the current date.</string>
+    <string name="listNameEmpty">The list name cannot be empty.</string>
 </resources>

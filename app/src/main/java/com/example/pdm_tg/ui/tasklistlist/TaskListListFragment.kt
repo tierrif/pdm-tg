@@ -104,12 +104,6 @@ class TaskListListFragment : Fragment() {
             ListType.MY_DAY -> getString(R.string.my_day)
         }
 
-        /*findNavController().navigate(
-            TaskListListFragmentDirections.actionTaskListListFragmentToTaskListFragment(
-                listName, listType
-            )
-        )*/
-
         findNavController().navigate(
             R.id.action_taskListListFragment_to_taskListFragment,
             Bundle().apply {
@@ -120,7 +114,7 @@ class TaskListListFragment : Fragment() {
     }
 
     private fun onListLongClick(taskList: TaskList?, defaultList: ListType = ListType.CUSTOM) {
-
+        // TODO: Delete/edit menu.
     }
 
     enum class ListType { MY_DAY, PLANNED, CUSTOM }
