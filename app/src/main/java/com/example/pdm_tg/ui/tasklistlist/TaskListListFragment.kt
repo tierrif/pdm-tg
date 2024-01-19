@@ -111,6 +111,7 @@ class TaskListListFragment : Fragment() {
             R.id.action_taskListListFragment_to_taskListFragment,
             Bundle().apply {
                 putString("listName", listName)
+                taskList?.id?.let { putLong("listId", it) }
                 putSerializable("type", listType)
             }
         )
