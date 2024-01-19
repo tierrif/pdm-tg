@@ -130,6 +130,9 @@ class NewTodoFragment : Fragment() {
                 WEEK_IN_MILLIS,
                 FORMAT_ABBREV_RELATIVE,
             )
+
+            // Update pickedDate.
+            pickedDate = calendar.time
         }
 
         // Handle the task list clear button so that it may be empty on submit.
@@ -153,7 +156,6 @@ class NewTodoFragment : Fragment() {
                     R.string.newTodoMissingData, Toast.LENGTH_SHORT).show()
             }
 
-            // TODO: check if pickedDate is being saved wrongly without time.
             lifecycleScope.launch {
                 viewModel.newTask(
                     taskNameEditText.text.toString(), selectedTaskList, pickedDate!!
