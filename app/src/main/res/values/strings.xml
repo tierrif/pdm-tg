@@ -21,4 +21,7 @@
     <string name="newTodoMissingData">The task name and the due date are mandatory.</string>
     <string name="clear">Clear</string>
     <string name="clearList">Clear Task List</string>
+    <string name="delete">Delete</string>
+    <string name="deleteTaskDialogTitle">Delete Task</string>
+    <string name="deleteTaskDialogDescription">Are you sure? This cannot be undone.</string>
 </resources>

@@ -48,4 +48,15 @@ class TaskViewModel(app: Application, savedStateHandle: SavedStateHandle) : Andr
         val taskDao = AppDB(getApplication()).taskDao()
         taskDao.update(task)
     }
+
+    /**
+     * Delete a specific task.
+     *
+     * @param taskId The ID of the task to delete.
+     * @return The job that can be joined.
+     */
+    fun deleteTask(taskId: Long) = viewModelScope.launch(Dispatchers.IO) {
+        val taskDao = AppDB(getApplication()).taskDao()
+        taskDao.deleteById(taskId)
+    }
 }
