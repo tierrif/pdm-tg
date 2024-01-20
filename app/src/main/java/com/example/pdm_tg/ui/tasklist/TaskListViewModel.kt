@@ -24,7 +24,6 @@ class TaskListViewModel(
     fun getTaskList(): LiveData<List<Task>> {
         val db = AppDB(getApplication())
 
-        // TODO: Fix MY_DAY and CUSTOM
         return when (args.type) {
             CUSTOM -> db.taskDao().getByList(args.listId)
             MY_DAY -> db.taskDao().getToday()

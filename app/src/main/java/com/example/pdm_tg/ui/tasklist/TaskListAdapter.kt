@@ -1,13 +1,11 @@
 package com.example.pdm_tg.ui.tasklist
 
-import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +24,7 @@ private val taskDiffer = object : DiffUtil.ItemCallback<Task>() {
 class TaskViewHolder(
     private val view: View,
     private val onClick: (Task) -> Unit,
-    private val onLongClick: (Task) -> Unit,
+    private val onTaskComplete: (Task) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
     private var task: Task? = null
     private var binding = TaskItemBinding.bind(view)
@@ -39,18 +37,12 @@ class TaskViewHolder(
     init {
         binding.root.setOnClickListener {
             onClick(task!!)
-            checkbox.checkedState = MaterialCheckBox.STATE_CHECKED
         }
 
         checkbox.addOnCheckedStateChangedListener { _, state ->
             if (state == MaterialCheckBox.STATE_CHECKED) {
-                onClick(task!!)
+                onTaskComplete(task!!)
             }
-        }
-
-        binding.root.setOnLongClickListener {
-            onLongClick(task!!)
-            true
         }
     }
 
@@ -82,7 +74,7 @@ class TaskViewHolder(
 
 class TaskAdapter(
     private val onClick: (Task) -> Unit,
-    private val onLongClick: (Task) -> Unit,
+    private val onTaskComplete: (Task) -> Unit,
     differ: DiffUtil.ItemCallback<Task> = taskDiffer,
 ) : ListAdapter<Task, TaskViewHolder>(differ) {
 
@@ -91,8 +83,8 @@ class TaskAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.task_item, parent, false)
 
-        // Return the view holder with the onClick and onLongClick listeners.
-        return TaskViewHolder(view, onClick, onLongClick)
+        // Return the view holder with the onClick listener.
+        return TaskViewHolder(view, onClick, onTaskComplete)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {

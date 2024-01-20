@@ -50,6 +50,20 @@
             android:name="type"
             android:defaultValue="CUSTOM"
             app:argType="com.example.pdm_tg.ui.tasklistlist.TaskListListFragment$ListType" />
+        <action
+            android:id="@+id/action_taskListFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.example.pdm_tg.ui.task.TaskFragment"
+        android:label="TaskFragment">
+
+        <argument
+            android:name="taskId"
+            android:defaultValue="-1L"
+            app:argType="long" />
 
     </fragment>
 </navigation>

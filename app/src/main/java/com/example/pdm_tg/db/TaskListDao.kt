@@ -16,6 +16,9 @@ interface TaskListDao {
     @Query("select * from TaskList")
     fun get(): List<TaskList>
 
+    @Query("select * from TaskList where id = :id")
+    fun getById(id: Long): TaskList
+
     @Query("delete from TaskList")
     fun deleteAll()
 

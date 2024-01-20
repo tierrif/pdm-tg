@@ -5,7 +5,6 @@ import android.text.format.DateUtils
 import android.text.format.DateUtils.FORMAT_ABBREV_RELATIVE
 import android.text.format.DateUtils.MINUTE_IN_MILLIS
 import android.text.format.DateUtils.WEEK_IN_MILLIS
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,49 +23,95 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 
-class NewTodoFragment : Fragment() {
+open class NewTodoFragment : Fragment() {
     private lateinit var binding: FragmentNewTodoBinding
-    private var pickedDate: Date? = null
-    private var selectedTaskList: TaskList? = null
-
     private val viewModel: NewTodoViewModel by viewModels()
+    private lateinit var taskListsEditText: AutoCompleteTextView
+
+    protected var pickedDate: Date? = null
+        set(pickedDate) {
+            pickedDate ?: return let { field = null }
+
+            // Set the text preview when a date is set.
+            datePreview.text = DateUtils.getRelativeDateTimeString(
+                requireContext(),
+                pickedDate.time,
+                MINUTE_IN_MILLIS,
+                WEEK_IN_MILLIS,
+                FORMAT_ABBREV_RELATIVE,
+            )
+            field = pickedDate
+        }
+    protected var selectedTaskList: TaskList? = null
+        set(taskList) {
+            taskList ?: return
+
+            // Set the selection when setting this attribute.
+            taskListsEditText.setText(taskList.listName, false)
+            field = taskList
+        }
+
+    private lateinit var datePreview: TextView
+    protected lateinit var taskNameEditText: TextInputEditText
+
+    // If this is set to true by an inherited class, insertion won't happen but a method call.
+    protected var isDetails = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ) = FragmentNewTodoBinding.inflate(inflater).also {
         binding = it
     }.root
+
+    /**
+     * To inherit by the details class to fill
+     * fields with data already stored in the
+     * db for this task in specific.
+     */
+    protected open fun fillFields() = Unit
+
+    /**
+     * Called when the user saves successfully.
+     * This won't be called if there is an input error.
+     */
+    protected open fun onSave(
+        taskName: String, taskList: TaskList?, dueDate: Date
+    ): Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize the task lists dropdown.
-        val taskLists = requireActivity().findViewById<AutoCompleteTextView>(R.id.taskListEditText)
+        taskListsEditText = requireActivity().findViewById(R.id.taskListEditText)
 
         // Set the adapter with the content through a coroutine (db access).
         lifecycleScope.launch {
-            taskLists.setAdapter(ArrayAdapter(
-                requireActivity(),
-                android.R.layout.simple_dropdown_item_1line,
-                viewModel.getTaskLists().await()
-            ))
+            taskListsEditText.setAdapter(
+                ArrayAdapter(
+                    requireActivity(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    viewModel.getTaskLists().await()
+                )
+            )
+
+            // If this class is inherited, the field values can be filled.
+            fillFields()
         }
 
         // Listen to changes on the dropdown so they're stored in memory.
-        taskLists.setOnItemClickListener { _, _, position, _ ->
-            selectedTaskList = taskLists.adapter.getItem(position) as TaskList
+        taskListsEditText.setOnItemClickListener { _, _, position, _ ->
+            selectedTaskList = taskListsEditText.adapter.getItem(position) as TaskList
         }
 
         // Build a date picker.
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText(getString(R.string.selectDate))
-            .build()
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker().setTitleText(getString(R.string.selectDate))
+                .build()
 
         // Build a time picker.
         val timePicker = MaterialTimePicker.Builder().build()
@@ -79,7 +124,7 @@ class NewTodoFragment : Fragment() {
         }
 
         // Get the date preview TextView so it's edited on date select.
-        val datePreview = requireActivity().findViewById<TextView>(R.id.datePreview)
+        datePreview = requireActivity().findViewById(R.id.datePreview)
 
         // We'll only need a listener for the positive button click. Cancel closes it by default.
         datePicker.addOnPositiveButtonClickListener {
@@ -93,8 +138,9 @@ class NewTodoFragment : Fragment() {
 
             // Check if the date isn't before today.
             if (it < now.time.time) {
-                Toast.makeText(requireContext(),
-                    getString(R.string.badDate), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
+                ).show()
 
                 return@addOnPositiveButtonClickListener
             }
@@ -116,20 +162,12 @@ class NewTodoFragment : Fragment() {
 
             // Check if the time isn't before the current time.
             if (calendar.time.time < Calendar.getInstance().time.time) {
-                Toast.makeText(requireContext(),
-                    getString(R.string.badDate), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
+                ).show()
 
                 return@addOnPositiveButtonClickListener
             }
-
-            // Display this date.
-            datePreview.text = DateUtils.getRelativeDateTimeString(
-                requireContext(),
-                calendar.time.time,
-                MINUTE_IN_MILLIS,
-                WEEK_IN_MILLIS,
-                FORMAT_ABBREV_RELATIVE,
-            )
 
             // Update pickedDate.
             pickedDate = calendar.time
@@ -138,28 +176,33 @@ class NewTodoFragment : Fragment() {
         // Handle the task list clear button so that it may be empty on submit.
         val clearButton = requireActivity().findViewById<MaterialButton>(R.id.clearTaskList)
         clearButton.setOnClickListener {
-            taskLists.apply {
+            taskListsEditText.apply {
                 text = null
                 isFocusable = false
             }
         }
 
         // Get the task name EditText.
-        val taskNameEditText = requireActivity()
-            .findViewById<TextInputEditText>(R.id.taskNameEditText)
+        taskNameEditText =
+            requireActivity().findViewById(R.id.taskNameEditText)
 
         // Add a listener for the save button and verify if all data is filled.
         val saveButton = requireActivity().findViewById<MaterialButton>(R.id.save)
         saveButton.setOnClickListener {
             if (taskNameEditText.text.isNullOrEmpty() || pickedDate === null) {
-                return@setOnClickListener Toast.makeText(requireContext(),
-                    R.string.newTodoMissingData, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener Toast.makeText(
+                    requireContext(), R.string.newTodoMissingData, Toast.LENGTH_SHORT
+                ).show()
             }
 
             lifecycleScope.launch {
-                viewModel.newTask(
-                    taskNameEditText.text.toString(), selectedTaskList, pickedDate!!
-                ).join()
+                if (isDetails) {
+                    onSave(taskNameEditText.text.toString(), selectedTaskList, pickedDate!!)?.join()
+                } else {
+                    viewModel.newTask(
+                        taskNameEditText.text.toString(), selectedTaskList, pickedDate!!
+                    ).join()
+                }
 
                 findNavController().popBackStack()
             }

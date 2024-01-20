@@ -47,6 +47,7 @@ class NewListFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
 
+            // TODO: check if a list with this name already exists and block if it does
             viewModel.newTaskList(name.text.toString()).invokeOnCompletion {
                 lifecycleScope.launch {
                     findNavController().popBackStack()

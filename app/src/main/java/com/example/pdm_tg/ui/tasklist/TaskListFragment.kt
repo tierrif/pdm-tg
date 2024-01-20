@@ -23,7 +23,7 @@ class TaskListFragment : Fragment() {
     private val viewModel: TaskListViewModel by viewModels()
     private lateinit var binding: FragmentTaskListBinding
     private val args: TaskListFragmentArgs by navArgs()
-    private val adapter = TaskAdapter(::onListClick, ::onListLongClick)
+    private val adapter = TaskAdapter(::onListClick, ::onTaskComplete)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,8 +55,16 @@ class TaskListFragment : Fragment() {
     }
 
     private fun onListClick(task: Task) {
+        findNavController().navigate(
+            R.id.action_taskListFragment_to_taskFragment,
+            Bundle().apply {
+                putLong("taskId", task.id)
+            }
+        )
     }
 
-    private fun onListLongClick(task: Task) {
+    private fun onTaskComplete(task: Task) {
+        // TODO: edit database to add task complete column and filter everything by not complete
+        // TODO: also create default list called "Complete"
     }
 }

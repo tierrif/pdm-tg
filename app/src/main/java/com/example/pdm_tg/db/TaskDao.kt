@@ -24,6 +24,9 @@ interface TaskDao {
             "date(datetime(dateDue / 1000 , 'unixepoch')) = date('now') order by dateDue asc")
     fun getToday(): LiveData<List<Task>>
 
+    @Query("select * from Task where id = :id")
+    fun getById(id: Long): Task
+
     @Insert
     fun insert(data: Task): Long
 
