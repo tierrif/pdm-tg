@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_day">O Meu Dia</string>
+    <string name="planned">Planeado</string>
+    <string name="new_to_do">Nova Tarefa</string>
+    <string name="new_list">Nova Lista</string>
+    <string name="list_name">Nome da Lista</string>
+    <string name="save">Guardar</string>
+    <string name="untitled">Sem título</string>
+    <string name="custom">Personalizado</string>
+    <string name="pick">(escolha)</string>
+    <string name="dueDate">Prazo</string>
+    <string name="selectDate">Selecionar Data</string>
+    <string name="task_name">Nome da Tarefa</string>
+    <string name="list">Lista (opcional)</string>
+    <string name="badDate">Não é possível selecionar uma data anterior à atual.</string>
+    <string name="listNameEmpty">O nome da lista não pode ficar vazio.</string>
+    <string name="newTodoMissingData">O nome da tarefa e o prazo são obrigatórios.</string>
+    <string name="clear">Limpar</string>
+    <string name="clearList">Limpar Lista de Tarefas</string>
+    <string name="delete">Eliminar</string>
+    <string name="deleteTaskDialogTitle">Eliminar Tarefa</string>
+    <string name="deleteTaskDialogDescription">Tem a certeza? Isto não é anulável.</string>
+    <string name="button">botão</string>
+</resources>
