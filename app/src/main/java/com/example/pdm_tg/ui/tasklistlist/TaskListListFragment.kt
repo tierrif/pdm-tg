@@ -128,7 +128,9 @@ class TaskListListFragment : Fragment() {
     }
 
     private fun onListLongClick(taskList: TaskList?, defaultList: ListType = ListType.CUSTOM) {
-        // TODO: Delete/edit menu.
+        /*findNavController().navigate(
+
+        )*/
     }
 
     enum class ListType { MY_DAY, PLANNED, CUSTOM }

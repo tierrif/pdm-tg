@@ -56,8 +56,6 @@ open class NewListFragment : InheritableFragment<TaskList>() {
         val saveBtn = requireActivity().findViewById<MaterialButton>(R.id.save)
         val name = requireActivity().findViewById<TextInputEditText>(R.id.listNameEditText)
 
-
-
         saveBtn.setOnClickListener {
             if (name.text.isNullOrEmpty()) return@setOnClickListener Toast.makeText(
                 requireContext(),
@@ -65,10 +63,19 @@ open class NewListFragment : InheritableFragment<TaskList>() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            // TODO: check if a list with this name already exists and block if it does
-            viewModel.newTaskList(name.text.toString()).invokeOnCompletion {
-                lifecycleScope.launch {
-                    findNavController().popBackStack()
+            lifecycleScope.launch {
+                if (viewModel.getTaskListByName(name.text.toString()).await() !== null) {
+                    return@launch Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.listAlreadyExists),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                viewModel.newTaskList(name.text.toString()).invokeOnCompletion {
+                    lifecycleScope.launch {
+                        findNavController().popBackStack()
+                    }
                 }
             }
         }

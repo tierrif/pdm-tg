@@ -24,4 +24,5 @@
     <string name="deleteTaskDialogDescription">Are you sure? This cannot be undone.</string>
     <string name="reminder">Reminder (optional)</string>
     <string name="selectReminder">Add Reminder</string>
+    <string name="listAlreadyExists">A list with this name already exists.</string>
 </resources>

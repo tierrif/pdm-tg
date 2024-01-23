@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_taskListListFragment_to_taskListFragment"
             app:destination="@id/taskListFragment" />
+        <action
+            android:id="@+id/action_taskListListFragment_to_taskListEditFragment"
+            app:destination="@id/taskListEditFragment" />
     </fragment>
 
     <fragment
@@ -66,4 +69,8 @@
             app:argType="long" />
 
     </fragment>
+    <fragment
+        android:id="@+id/taskListEditFragment"
+        android:name="com.example.pdm_tg.ui.tasklistedit.TaskListEditFragment"
+        android:label="TaskListEditFragment" />
 </navigation>
