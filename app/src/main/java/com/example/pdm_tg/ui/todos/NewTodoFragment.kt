@@ -88,6 +88,7 @@ open class NewTodoFragment : InheritableFragment<Task>() {
     private lateinit var datePreview: TextView
     private lateinit var reminderPreview: TextView
     protected lateinit var taskNameEditText: TextInputEditText
+    protected lateinit var taskNotesEditText: TextInputEditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -290,6 +291,9 @@ open class NewTodoFragment : InheritableFragment<Task>() {
         taskNameEditText =
             requireActivity().findViewById(R.id.taskNameEditText)
 
+        //Get task notes
+        taskNotesEditText = requireActivity().findViewById(R.id.taskNotes)
+
         // Add a listener for the save button and verify if all data is filled.
         val saveButton = requireActivity().findViewById<MaterialButton>(R.id.save)
         saveButton.setOnClickListener {
@@ -328,7 +332,9 @@ open class NewTodoFragment : InheritableFragment<Task>() {
                             taskNameEditText.text.toString(),
                             selectedTaskList?.id,
                             pickedDate!!,
-                            pickedReminder
+                            pickedReminder,
+                            false,
+                            taskNotesEditText.text.toString(),
                         )
                     ).join()
                 } else {
@@ -336,7 +342,8 @@ open class NewTodoFragment : InheritableFragment<Task>() {
                         taskNameEditText.text.toString(),
                         selectedTaskList,
                         pickedDate!!,
-                        pickedReminder
+                        pickedReminder,
+                        taskNotesEditText.text.toString(),
                     ).join()
                 }
 

@@ -26,4 +26,5 @@
     <string name="selectReminder">Add Reminder</string>
     <string name="listAlreadyExists">A list with this name already exists.</string>
     <string name="deleteTaskListDialogTitle">Delete Task List</string>
+    <string name="notesLabel">Type some notes (optional)...</string>
 </resources>

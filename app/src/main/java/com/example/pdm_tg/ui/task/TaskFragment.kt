@@ -30,6 +30,7 @@ class TaskFragment : NewTodoFragment(), MenuProvider {
             pickedDate = task.dateDue
             pickedReminder = task.reminderDate
             taskNameEditText.setText(task.name)
+            taskNotesEditText.setText(task.notes)
         }
     }
 

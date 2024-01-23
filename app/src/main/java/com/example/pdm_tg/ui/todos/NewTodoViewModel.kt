@@ -14,10 +14,10 @@ import java.util.Date
 
 class NewTodoViewModel(app: Application) : AndroidViewModel(app) {
     fun newTask(
-        taskName: String, taskList: TaskList?, dueDate: Date, reminderDate: Date?
+        taskName: String, taskList: TaskList?, dueDate: Date, reminderDate: Date?, notes: String?
     ) = viewModelScope.launch(Dispatchers.IO) {
         val taskDao = AppDB(getApplication()).taskDao()
-        taskDao.insert(Task(taskName, taskList?.id, dueDate, reminderDate))
+        taskDao.insert(Task(taskName, taskList?.id, dueDate, reminderDate, false, notes))
     }
 
     fun getTaskLists(): Deferred<List<TaskList>> = viewModelScope.async(Dispatchers.IO) {

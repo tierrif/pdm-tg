@@ -23,6 +23,7 @@ data class Task(
     val dateDue: Date,
     val reminderDate: Date?,
     var isDone: Boolean = false,
+    var notes: String?,
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
 )
 
