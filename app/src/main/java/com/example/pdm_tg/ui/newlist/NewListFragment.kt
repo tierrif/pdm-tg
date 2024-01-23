@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.pdm_tg.InheritableFragment
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentNewListBinding
+import com.example.pdm_tg.db.Task
 import com.example.pdm_tg.db.TaskList
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -21,6 +22,8 @@ import kotlinx.coroutines.launch
 open class NewListFragment : InheritableFragment<TaskList>() {
     private lateinit var binding: FragmentNewListBinding
     private val viewModel: NewTaskListViewModel by viewModels()
+
+    protected lateinit var name: TextInputEditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +57,9 @@ open class NewListFragment : InheritableFragment<TaskList>() {
 
         // List creation.
         val saveBtn = requireActivity().findViewById<MaterialButton>(R.id.save)
-        val name = requireActivity().findViewById<TextInputEditText>(R.id.listNameEditText)
+        name = requireActivity().findViewById(R.id.listNameEditText)
+
+        fillFields()
 
         saveBtn.setOnClickListener {
             if (name.text.isNullOrEmpty()) return@setOnClickListener Toast.makeText(
@@ -72,11 +77,13 @@ open class NewListFragment : InheritableFragment<TaskList>() {
                     ).show()
                 }
 
-                viewModel.newTaskList(name.text.toString()).invokeOnCompletion {
-                    lifecycleScope.launch {
-                        findNavController().popBackStack()
-                    }
+                if (isDetails) {
+                    onSave(TaskList(name.text.toString())).join()
+                } else {
+                    viewModel.newTaskList(name.text.toString()).join()
                 }
+
+                findNavController().popBackStack()
             }
         }
     }

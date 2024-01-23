@@ -128,9 +128,14 @@ class TaskListListFragment : Fragment() {
     }
 
     private fun onListLongClick(taskList: TaskList?, defaultList: ListType = ListType.CUSTOM) {
-        /*findNavController().navigate(
+        if (defaultList != ListType.CUSTOM) return
 
-        )*/
+        findNavController().navigate(
+            R.id.action_taskListListFragment_to_taskListEditFragment,
+            Bundle().apply {
+                putLong("taskListId", taskList!!.id)
+            }
+        )
     }
 
     enum class ListType { MY_DAY, PLANNED, CUSTOM }

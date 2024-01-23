@@ -34,6 +34,7 @@ class TaskFragment : NewTodoFragment(), MenuProvider {
     }
 
     override fun onSave(t: Task): Job {
+        t.id = args.taskId
         return viewModel.updateTask(t)
     }
 

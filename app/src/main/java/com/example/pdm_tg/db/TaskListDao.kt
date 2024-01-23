@@ -33,4 +33,7 @@ interface TaskListDao {
 
     @Delete
     fun delete(data: TaskList): Int
+
+    @Query("delete from TaskList where id = :taskListId")
+    fun deleteById(taskListId: Long)
 }

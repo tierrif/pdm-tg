@@ -22,7 +22,7 @@ data class Task(
     @ColumnInfo(index = true) val taskListId: Long?,
     val dateDue: Date,
     val reminderDate: Date?,
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) var id: Long = 0,
 )
 
 @Entity
@@ -34,7 +34,7 @@ data class Tag(
 @Entity
 data class TaskList(
     val listName: String,
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) var id: Long = 0,
 ) {
     /**
      * Called by the ArrayAdapter responsible

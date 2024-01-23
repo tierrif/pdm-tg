@@ -72,5 +72,12 @@
     <fragment
         android:id="@+id/taskListEditFragment"
         android:name="com.example.pdm_tg.ui.tasklistedit.TaskListEditFragment"
-        android:label="TaskListEditFragment" />
+        android:label="TaskListEditFragment">
+
+        <argument
+            android:name="taskListId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+    </fragment>
 </navigation>
