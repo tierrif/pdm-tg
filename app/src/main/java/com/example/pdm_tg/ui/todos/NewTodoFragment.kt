@@ -6,21 +6,19 @@ import android.text.format.DateUtils.FORMAT_ABBREV_RELATIVE
 import android.text.format.DateUtils.MINUTE_IN_MILLIS
 import android.text.format.DateUtils.WEEK_IN_MILLIS
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.pdm_tg.InheritableFragment
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentNewTodoBinding
+import com.example.pdm_tg.db.Task
 import com.example.pdm_tg.db.TaskList
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -31,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 
-open class NewTodoFragment : Fragment() {
+open class NewTodoFragment : InheritableFragment<Task>() {
     private lateinit var binding: FragmentNewTodoBinding
     private val viewModel: NewTodoViewModel by viewModels()
     private lateinit var taskListsEditText: AutoCompleteTextView
@@ -62,9 +60,6 @@ open class NewTodoFragment : Fragment() {
     private lateinit var datePreview: TextView
     protected lateinit var taskNameEditText: TextInputEditText
 
-    // If this is set to true by an inherited class, insertion won't happen but a method call.
-    protected var isDetails = false
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ) = FragmentNewTodoBinding.inflate(inflater).also {
@@ -76,15 +71,13 @@ open class NewTodoFragment : Fragment() {
      * fields with data already stored in the
      * db for this task in specific.
      */
-    protected open fun fillFields() = Unit
+    override fun fillFields() = Unit
 
     /**
      * Called when the user saves successfully.
      * This won't be called if there is an input error.
      */
-    protected open fun onSave(
-        taskName: String, taskList: TaskList?, dueDate: Date
-    ): Job? = null
+    override fun onSave(t: Task): Job = Job()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -200,7 +193,13 @@ open class NewTodoFragment : Fragment() {
 
             lifecycleScope.launch {
                 if (isDetails) {
-                    onSave(taskNameEditText.text.toString(), selectedTaskList, pickedDate!!)?.join()
+                    onSave(
+                        Task(
+                            taskNameEditText.text.toString(),
+                            selectedTaskList?.id,
+                            pickedDate!!
+                        )
+                    )?.join()
                 } else {
                     viewModel.newTask(
                         taskNameEditText.text.toString(), selectedTaskList, pickedDate!!

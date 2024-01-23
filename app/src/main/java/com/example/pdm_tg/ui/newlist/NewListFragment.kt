@@ -6,17 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.pdm_tg.InheritableFragment
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentNewListBinding
+import com.example.pdm_tg.db.TaskList
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class NewListFragment : Fragment() {
+open class NewListFragment : InheritableFragment<TaskList>() {
     private lateinit var binding: FragmentNewListBinding
     private val viewModel: NewTaskListViewModel by viewModels()
 
@@ -26,6 +28,19 @@ class NewListFragment : Fragment() {
     ) = FragmentNewListBinding.inflate(inflater).also {
         binding = it
     }.root
+
+    /**
+     * To inherit by the details class to fill
+     * fields with data already stored in the
+     * db for this task in specific.
+     */
+    override fun fillFields() = Unit
+
+    /**
+     * Called when the user saves successfully.
+     * This won't be called if there is an input error.
+     */
+    override fun onSave(t: TaskList): Job = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +55,9 @@ class NewListFragment : Fragment() {
         // List creation.
         val saveBtn = requireActivity().findViewById<MaterialButton>(R.id.save)
         val name = requireActivity().findViewById<TextInputEditText>(R.id.listNameEditText)
+
+
+
         saveBtn.setOnClickListener {
             if (name.text.isNullOrEmpty()) return@setOnClickListener Toast.makeText(
                 requireContext(),

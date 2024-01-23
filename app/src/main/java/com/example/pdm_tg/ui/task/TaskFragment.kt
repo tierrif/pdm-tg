@@ -3,7 +3,6 @@ package com.example.pdm_tg.ui.task
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -12,11 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.R
 import com.example.pdm_tg.db.Task
-import com.example.pdm_tg.db.TaskList
 import com.example.pdm_tg.ui.todos.NewTodoFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.Date
 
 class TaskFragment : NewTodoFragment(), MenuProvider {
     private val viewModel: TaskViewModel by viewModels()
@@ -35,8 +32,8 @@ class TaskFragment : NewTodoFragment(), MenuProvider {
         }
     }
 
-    override fun onSave(taskName: String, taskList: TaskList?, dueDate: Date): Job {
-        return viewModel.updateTask(Task(taskName, taskList?.id, dueDate, args.taskId))
+    override fun onSave(t: Task): Job {
+        return viewModel.updateTask(t)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
