@@ -1,7 +1,6 @@
 package com.example.pdm_tg.ui.tasklist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +13,13 @@ import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentTaskListBinding
 import com.example.pdm_tg.db.Task
-import com.example.pdm_tg.db.TaskList
-import com.example.pdm_tg.ui.tasklistlist.TaskListAdapter
-import com.example.pdm_tg.ui.tasklistlist.TaskListListFragment
 import kotlinx.coroutines.launch
 
 class TaskListFragment : Fragment() {
     private val viewModel: TaskListViewModel by viewModels()
     private lateinit var binding: FragmentTaskListBinding
     private val args: TaskListFragmentArgs by navArgs()
-    private val adapter = TaskAdapter(::onListClick, ::onTaskComplete)
+    private val adapter = TaskAdapter(::onListClick, ::onTaskStatusChange)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,8 +59,9 @@ class TaskListFragment : Fragment() {
         )
     }
 
-    private fun onTaskComplete(task: Task) {
-        // TODO: edit database to add task complete column and filter everything by not complete
-        // TODO: also create default list called "Complete"
+    private fun onTaskStatusChange(task: Task) {
+        lifecycleScope.launch {
+            viewModel.updateTask(task)
+        }
     }
 }

@@ -5,9 +5,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.example.pdm_tg.db.AppDB
 import com.example.pdm_tg.db.Task
 import com.example.pdm_tg.ui.tasklistlist.TaskListListFragment.ListType.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TaskListViewModel(
     app: Application,
@@ -29,5 +32,10 @@ class TaskListViewModel(
             MY_DAY -> db.taskDao().getToday()
             PLANNED -> db.taskDao().get()
         }
+    }
+
+    fun updateTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
+        val taskDao = AppDB(getApplication()).taskDao()
+        taskDao.update(task)
     }
 }

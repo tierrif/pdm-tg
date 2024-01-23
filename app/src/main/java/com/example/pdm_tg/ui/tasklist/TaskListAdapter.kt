@@ -1,9 +1,11 @@
 package com.example.pdm_tg.ui.tasklist
 
+import android.graphics.Paint
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +26,7 @@ private val taskDiffer = object : DiffUtil.ItemCallback<Task>() {
 class TaskViewHolder(
     private val view: View,
     private val onClick: (Task) -> Unit,
-    private val onTaskComplete: (Task) -> Unit,
+    private val onTaskStateChange: (Task) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
     private var task: Task? = null
     private var binding = TaskItemBinding.bind(view)
@@ -40,8 +42,16 @@ class TaskViewHolder(
         }
 
         checkbox.addOnCheckedStateChangedListener { _, state ->
-            if (state == MaterialCheckBox.STATE_CHECKED) {
-                onTaskComplete(task!!)
+            task!!.isDone = state == MaterialCheckBox.STATE_CHECKED
+            onTaskStateChange(task!!)
+
+            if (task!!.isDone) {
+                val flags = taskName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                taskName.paintFlags = flags
+                taskDueDate.paintFlags = flags
+            } else {
+                taskName.paintFlags = 0
+                taskDueDate.paintFlags = 0
             }
         }
     }
@@ -63,6 +73,17 @@ class TaskViewHolder(
             DateUtils.WEEK_IN_MILLIS,
             DateUtils.FORMAT_ABBREV_RELATIVE,
         )
+        checkbox.checkedState =
+            if (task.isDone) MaterialCheckBox.STATE_CHECKED else MaterialCheckBox.STATE_UNCHECKED
+
+        if (task.isDone) {
+            val flags = taskName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            taskName.paintFlags = flags
+            taskDueDate.paintFlags = flags
+        } else {
+            taskName.paintFlags = 0
+            taskDueDate.paintFlags = 0
+        }
 
         // If it's overdue, set the text to red.
         if (task.dateDue.time < Calendar.getInstance().time.time) {
@@ -74,7 +95,7 @@ class TaskViewHolder(
 
 class TaskAdapter(
     private val onClick: (Task) -> Unit,
-    private val onTaskComplete: (Task) -> Unit,
+    private val onTaskStateChange: (Task) -> Unit,
     differ: DiffUtil.ItemCallback<Task> = taskDiffer,
 ) : ListAdapter<Task, TaskViewHolder>(differ) {
 
@@ -84,7 +105,7 @@ class TaskAdapter(
             .inflate(R.layout.task_item, parent, false)
 
         // Return the view holder with the onClick listener.
-        return TaskViewHolder(view, onClick, onTaskComplete)
+        return TaskViewHolder(view, onClick, onTaskStateChange)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {

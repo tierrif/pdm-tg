@@ -22,6 +22,7 @@ data class Task(
     @ColumnInfo(index = true) val taskListId: Long?,
     val dateDue: Date,
     val reminderDate: Date?,
+    var isDone: Boolean = false,
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
 )
 
