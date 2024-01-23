@@ -7,13 +7,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(
-    entities = [Task::class, TaskList::class, Reminder::class, Tag::class, TaskTag::class],
+    entities = [Task::class, TaskList::class, Tag::class, TaskTag::class],
     version = 1
 )
 @TypeConverters(DateConverter::class)
 abstract class AppDB : RoomDatabase() {
-
-    abstract fun reminderDao(): ReminderDao
 
     abstract fun tagDao(): TagDao
 

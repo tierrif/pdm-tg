@@ -22,4 +22,6 @@
     <string name="delete">Delete</string>
     <string name="deleteTaskDialogTitle">Delete Task</string>
     <string name="deleteTaskDialogDescription">Are you sure? This cannot be undone.</string>
+    <string name="reminder">Reminder (optional)</string>
+    <string name="selectReminder">Add Reminder</string>
 </resources>

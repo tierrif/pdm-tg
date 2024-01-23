@@ -21,20 +21,7 @@ data class Task(
     val name: String,
     @ColumnInfo(index = true) val taskListId: Long?,
     val dateDue: Date,
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-)
-
-@Entity(
-    foreignKeys = [ForeignKey(
-        entity = Task::class,
-        parentColumns = ["id"],
-        childColumns = ["taskId"],
-        onDelete = CASCADE,
-        onUpdate = CASCADE,
-    )]
-)
-data class Reminder(
-    @ColumnInfo(index = true) val taskId: Long,
+    val reminderDate: Date?,
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 

@@ -28,6 +28,7 @@ class TaskFragment : NewTodoFragment(), MenuProvider {
             val task = viewModel.getTask().await()
             selectedTaskList = task.taskListId?.let { viewModel.getTaskListById(it).await() }
             pickedDate = task.dateDue
+            pickedReminder = task.reminderDate
             taskNameEditText.setText(task.name)
         }
     }
