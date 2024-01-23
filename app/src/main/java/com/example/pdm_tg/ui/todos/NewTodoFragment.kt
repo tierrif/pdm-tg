@@ -16,10 +16,12 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.AlarmManagerCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.pdm_tg.InheritableFragment
+import com.example.pdm_tg.MainActivity
 import com.example.pdm_tg.R
 import com.example.pdm_tg.ReminderReceiver
 import com.example.pdm_tg.databinding.FragmentNewTodoBinding
@@ -41,7 +43,10 @@ open class NewTodoFragment : InheritableFragment<Task>() {
 
     protected var pickedDate: Date? = null
         set(pickedDate) {
-            pickedDate ?: return let { field = null }
+            pickedDate ?: return let {
+                datePreview.text = resources.getText(R.string.pick)
+                field = null
+            }
 
             // Set the text preview when a date is set.
             datePreview.text = DateUtils.getRelativeDateTimeString(
@@ -56,7 +61,10 @@ open class NewTodoFragment : InheritableFragment<Task>() {
 
     protected var pickedReminder: Date? = null
         set(pickedReminder) {
-            pickedReminder ?: return let { field = null }
+            pickedReminder ?: return let {
+                reminderPreview.text = resources.getText(R.string.pick)
+                field = null
+            }
 
             // Set the text preview when a date is set.
             reminderPreview.text = DateUtils.getRelativeDateTimeString(
@@ -205,6 +213,8 @@ open class NewTodoFragment : InheritableFragment<Task>() {
                     requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
                 ).show()
 
+                pickedReminder = null
+
                 return@addOnPositiveButtonClickListener
             }
 
@@ -231,6 +241,8 @@ open class NewTodoFragment : InheritableFragment<Task>() {
                     requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
                 ).show()
 
+                pickedDate = null
+
                 return@addOnPositiveButtonClickListener
             }
 
@@ -238,12 +250,14 @@ open class NewTodoFragment : InheritableFragment<Task>() {
             pickedDate = calendar.time
         }
 
+        timePicker.addOnNegativeButtonClickListener { pickedDate = null }
+
         timePickerReminder.addOnPositiveButtonClickListener {
             // Use a calendar instance to set the time in the existing date.
             val calendar = Calendar.getInstance().apply {
                 time = pickedReminder!!
-                set(Calendar.HOUR_OF_DAY, timePicker.hour)
-                set(Calendar.MINUTE, timePicker.minute)
+                set(Calendar.HOUR_OF_DAY, timePickerReminder.hour)
+                set(Calendar.MINUTE, timePickerReminder.minute)
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
             }
@@ -260,6 +274,8 @@ open class NewTodoFragment : InheritableFragment<Task>() {
             // Update pickedDate.
             pickedReminder = calendar.time
         }
+
+        timePickerReminder.addOnNegativeButtonClickListener { pickedReminder = null }
 
         // Handle the task list clear button so that it may be empty on submit.
         val clearButton = requireActivity().findViewById<MaterialButton>(R.id.clearTaskList)
@@ -286,18 +302,24 @@ open class NewTodoFragment : InheritableFragment<Task>() {
             lifecycleScope.launch {
                 if (pickedReminder !== null) {
                     val alarmManager =
-                        requireContext().getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+                        requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     val intent = Intent(requireContext(), ReminderReceiver::class.java)
                     val pendingIntent = PendingIntent.getBroadcast(
-                        requireContext(), 0, intent,
-                        PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                        requireContext(),
+                        0,
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE
                     )
-
-                    alarmManager!!.set(
-                        AlarmManager.RTC_WAKEUP,
-                        pickedReminder!!.time,
-                        pendingIntent
+                    val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
+                    val basicPendingIntent = PendingIntent.getActivity(
+                        requireContext(),
+                        0,
+                        mainActivityIntent,
+                        PendingIntent.FLAG_IMMUTABLE
                     )
+                    val clockInfo =
+                        AlarmManager.AlarmClockInfo(pickedReminder!!.time, basicPendingIntent)
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent)
                 }
 
                 if (isDetails) {

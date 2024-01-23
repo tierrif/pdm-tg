@@ -1,15 +1,25 @@
 package com.example.pdm_tg.ui.tasklistlist
 
+import android.Manifest
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.pdm_tg.CHANNEL_ID
+import com.example.pdm_tg.MainActivity
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentTaskListListBinding
 import com.example.pdm_tg.db.TaskList
