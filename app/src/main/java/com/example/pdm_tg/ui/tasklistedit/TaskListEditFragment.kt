@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -53,6 +54,7 @@ class TaskListEditFragment : NewListFragment(), MenuProvider {
     override fun onStart() {
         super.onStart()
         requireActivity().addMenuProvider(this, viewLifecycleOwner)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.edit_list)
     }
 
     private fun deleteTask() {

@@ -27,4 +27,6 @@
     <string name="listAlreadyExists">A list with this name already exists.</string>
     <string name="deleteTaskListDialogTitle">Delete Task List</string>
     <string name="notesLabel">Type some notes (optional)...</string>
+    <string name="edit_task">Edit task</string>
+    <string name="edit_list">Edit List</string>
 </resources>

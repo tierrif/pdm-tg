@@ -22,4 +22,9 @@
     <string name="deleteTaskDialogTitle">Eliminar Tarefa</string>
     <string name="deleteTaskDialogDescription">Tem a certeza? Isto não é anulável.</string>
     <string name="button">botão</string>
+    <string name="reminder">Lembrete (opcional)</string>
+    <string name="selectReminder">Adicionar Lembrete</string>
+    <string name="listAlreadyExists">Uma lista com este nome já existe.</string>
+    <string name="deleteTaskListDialogTitle">Apagar lista</string>
+    <string name="notesLabel">Escrever notas (opcional)...</string>
 </resources>

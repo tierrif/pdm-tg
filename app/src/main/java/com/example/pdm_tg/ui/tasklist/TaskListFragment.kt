@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.R
 import com.example.pdm_tg.databinding.FragmentTaskListBinding
 import com.example.pdm_tg.db.Task
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
 class TaskListFragment : Fragment() {
@@ -42,6 +43,12 @@ class TaskListFragment : Fragment() {
                 adapter.submitList(it)
             }
         }
+
+        val addTaskButton = requireActivity().findViewById<FloatingActionButton>(R.id.newTodo)
+        addTaskButton.setOnClickListener {
+            findNavController().navigate(R.id.action_taskListFragment_to_newTodoFragment2)
+        }
+
     }
 
     override fun onStart() {

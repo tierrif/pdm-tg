@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_taskListFragment_to_taskFragment"
             app:destination="@id/taskFragment" />
+        <action
+            android:id="@+id/action_taskListFragment_to_newTodoFragment2"
+            app:destination="@id/newTodoFragment" />
 
     </fragment>
     <fragment

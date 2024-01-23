@@ -4,6 +4,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,6 +40,7 @@ class TaskFragment : NewTodoFragment(), MenuProvider {
         return viewModel.updateTask(t)
     }
 
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.task_menu, menu)
     }
@@ -55,6 +57,7 @@ class TaskFragment : NewTodoFragment(), MenuProvider {
     override fun onStart() {
         super.onStart()
         requireActivity().addMenuProvider(this, viewLifecycleOwner)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.edit_task)
     }
 
     private fun deleteTask() {
