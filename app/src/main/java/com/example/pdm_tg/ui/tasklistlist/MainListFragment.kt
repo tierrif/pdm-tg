@@ -11,22 +11,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.pdm_tg.R
-import com.example.pdm_tg.databinding.FragmentTaskListListBinding
+import com.example.pdm_tg.databinding.FragmentMainListBinding
 import com.example.pdm_tg.db.TaskList
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
-class TaskListListFragment : Fragment() {
-    private lateinit var binding: FragmentTaskListListBinding
+class MainListFragment : Fragment() {
+    private lateinit var binding: FragmentMainListBinding
 
-    private val viewModel: TaskListListViewModel by viewModels()
+    private val viewModel: MainListViewModel by viewModels()
     private val adapter = TaskListAdapter(::onListClick, ::onListLongClick)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = FragmentTaskListListBinding.inflate(inflater).also {
+    ) = FragmentMainListBinding.inflate(inflater).also {
         binding = it
     }.root
 
@@ -55,7 +55,7 @@ class TaskListListFragment : Fragment() {
         val fab = requireActivity().findViewById<FloatingActionButton>(R.id.newTodoOrList)
         fab.setOnClickListener {
             findNavController().navigate(
-                TaskListListFragmentDirections.actionTaskListListFragmentToNewTodoFragment()
+                MainListFragmentDirections.actionMainListFragmentToNewTaskFragment()
             )
         }
 
@@ -63,7 +63,7 @@ class TaskListListFragment : Fragment() {
         val newList = requireActivity().findViewById<MaterialButton>(R.id.newList)
         newList.setOnClickListener {
             findNavController().navigate(
-                TaskListListFragmentDirections.actionTaskListListFragmentToNewListFragment()
+                MainListFragmentDirections.actionMainListFragmentToNewTaskListFragment()
             )
         }
 
@@ -108,7 +108,7 @@ class TaskListListFragment : Fragment() {
         }
 
         findNavController().navigate(
-            R.id.action_taskListListFragment_to_taskListFragment,
+            R.id.action_mainListFragment_to_taskListFragment,
             Bundle().apply {
                 putString("listName", listName)
                 taskList?.id?.let { putLong("listId", it) }
@@ -121,7 +121,7 @@ class TaskListListFragment : Fragment() {
         if (defaultList != ListType.CUSTOM) return
 
         findNavController().navigate(
-            R.id.action_taskListListFragment_to_taskListEditFragment,
+            R.id.action_mainListFragment_to_taskListEditFragment,
             Bundle().apply {
                 putLong("taskListId", taskList!!.id)
             }

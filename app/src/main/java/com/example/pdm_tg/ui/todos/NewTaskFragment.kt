@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.AlarmManagerCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,7 +23,7 @@ import com.example.pdm_tg.InheritableFragment
 import com.example.pdm_tg.MainActivity
 import com.example.pdm_tg.R
 import com.example.pdm_tg.ReminderReceiver
-import com.example.pdm_tg.databinding.FragmentNewTodoBinding
+import com.example.pdm_tg.databinding.FragmentNewTaskBinding
 import com.example.pdm_tg.db.Task
 import com.example.pdm_tg.db.TaskList
 import com.google.android.material.button.MaterialButton
@@ -36,9 +35,9 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 
-open class NewTodoFragment : InheritableFragment<Task>() {
-    private lateinit var binding: FragmentNewTodoBinding
-    private val viewModel: NewTodoViewModel by viewModels()
+open class NewTaskFragment : InheritableFragment<Task>() {
+    private lateinit var binding: FragmentNewTaskBinding
+    private val viewModel: NewTaskViewModel by viewModels()
     private lateinit var taskListsEditText: AutoCompleteTextView
 
     protected var pickedDate: Date? = null
@@ -92,7 +91,7 @@ open class NewTodoFragment : InheritableFragment<Task>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ) = FragmentNewTodoBinding.inflate(inflater).also {
+    ) = FragmentNewTaskBinding.inflate(inflater).also {
         binding = it
     }.root
 

@@ -12,13 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.R
 import com.example.pdm_tg.db.Task
-import com.example.pdm_tg.ui.todos.NewTodoFragment
+import com.example.pdm_tg.ui.todos.NewTaskFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class TaskFragment : NewTodoFragment(), MenuProvider {
-    private val viewModel: TaskViewModel by viewModels()
-    private val args: TaskFragmentArgs by navArgs()
+class TaskEditFragment : NewTaskFragment(), MenuProvider {
+    private val viewModel: TaskEditViewModel by viewModels()
+    private val args: TaskEditFragmentArgs by navArgs()
 
     init {
         isDetails = true

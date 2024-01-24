@@ -11,16 +11,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.pdm_tg.InheritableFragment
 import com.example.pdm_tg.R
-import com.example.pdm_tg.databinding.FragmentNewListBinding
-import com.example.pdm_tg.db.Task
+import com.example.pdm_tg.databinding.FragmentNewTaskListBinding
 import com.example.pdm_tg.db.TaskList
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-open class NewListFragment : InheritableFragment<TaskList>() {
-    private lateinit var binding: FragmentNewListBinding
+open class NewTaskListFragment : InheritableFragment<TaskList>() {
+    private lateinit var binding: FragmentNewTaskListBinding
     private val viewModel: NewTaskListViewModel by viewModels()
 
     protected lateinit var name: TextInputEditText
@@ -28,7 +27,7 @@ open class NewListFragment : InheritableFragment<TaskList>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = FragmentNewListBinding.inflate(inflater).also {
+    ) = FragmentNewTaskListBinding.inflate(inflater).also {
         binding = it
     }.root
 

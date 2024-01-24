@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/taskListListFragment"
-        android:name="com.example.pdm_tg.ui.tasklistlist.TaskListListFragment"
+        android:name="com.example.pdm_tg.ui.tasklistlist.MainListFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_task_list_list">
+        tools:layout="@layout/fragment_main_list">
         <action
-            android:id="@+id/action_taskListListFragment_to_newTodoFragment"
-            app:destination="@id/newTodoFragment" />
+            android:id="@+id/action_mainListFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment" />
         <action
-            android:id="@+id/action_taskListListFragment_to_newListFragment"
-            app:destination="@id/newListFragment" />
+            android:id="@+id/action_mainListFragment_to_newTaskListFragment"
+            app:destination="@id/newTaskListFragment" />
         <action
-            android:id="@+id/action_taskListListFragment_to_taskListFragment"
+            android:id="@+id/action_mainListFragment_to_taskListFragment"
             app:destination="@id/taskListFragment" />
         <action
-            android:id="@+id/action_taskListListFragment_to_taskListEditFragment"
+            android:id="@+id/action_mainListFragment_to_taskListEditFragment"
             app:destination="@id/taskListEditFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/newTodoFragment"
-        android:name="com.example.pdm_tg.ui.todos.NewTodoFragment"
+        android:id="@+id/newTaskFragment"
+        android:name="com.example.pdm_tg.ui.todos.NewTaskFragment"
         android:label="@string/new_to_do" />
 
     <fragment
-        android:id="@+id/newListFragment"
-        android:name="com.example.pdm_tg.ui.newlist.NewListFragment"
+        android:id="@+id/newTaskListFragment"
+        android:name="com.example.pdm_tg.ui.newlist.NewTaskListFragment"
         android:label="@string/new_list" />
 
     <fragment
@@ -52,18 +52,21 @@
         <argument
             android:name="type"
             android:defaultValue="CUSTOM"
-            app:argType="com.example.pdm_tg.ui.tasklistlist.TaskListListFragment$ListType" />
+            app:argType="com.example.pdm_tg.ui.tasklistlist.MainListFragment$ListType" />
+
         <action
-            android:id="@+id/action_taskListFragment_to_taskFragment"
-            app:destination="@id/taskFragment" />
+            android:id="@+id/action_taskListFragment_to_taskEditFragment"
+            app:destination="@id/taskEditFragment" />
+
         <action
-            android:id="@+id/action_taskListFragment_to_newTodoFragment2"
-            app:destination="@id/newTodoFragment" />
+            android:id="@+id/action_taskListFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment" />
 
     </fragment>
+
     <fragment
-        android:id="@+id/taskFragment"
-        android:name="com.example.pdm_tg.ui.task.TaskFragment"
+        android:id="@+id/taskEditFragment"
+        android:name="com.example.pdm_tg.ui.task.TaskEditFragment"
         android:label="TaskFragment">
 
         <argument
@@ -72,6 +75,7 @@
             app:argType="long" />
 
     </fragment>
+
     <fragment
         android:id="@+id/taskListEditFragment"
         android:name="com.example.pdm_tg.ui.tasklistedit.TaskListEditFragment"

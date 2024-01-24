@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class TaskViewModel(app: Application, savedStateHandle: SavedStateHandle) : AndroidViewModel(app) {
-    private val args = TaskFragmentArgs.fromSavedStateHandle(savedStateHandle)
+class TaskEditViewModel(app: Application, savedStateHandle: SavedStateHandle) : AndroidViewModel(app) {
+    private val args = TaskEditFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
     /**
      * Get a task by the ID passed in args.

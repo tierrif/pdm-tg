@@ -12,7 +12,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.util.Date
 
-class NewTodoViewModel(app: Application) : AndroidViewModel(app) {
+class NewTaskViewModel(app: Application) : AndroidViewModel(app) {
     fun newTask(
         taskName: String, taskList: TaskList?, dueDate: Date, reminderDate: Date?, notes: String?
     ) = viewModelScope.launch(Dispatchers.IO) {

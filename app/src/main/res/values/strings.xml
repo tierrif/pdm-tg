@@ -3,7 +3,7 @@
     <string name="button">button</string>
     <string name="my_day">My Day</string>
     <string name="planned">Planned</string>
-    <string name="new_to_do">New To-Do</string>
+    <string name="new_to_do">New Task</string>
     <string name="new_list">New List</string>
     <string name="list_name">List Name</string>
     <string name="save">Save</string>
@@ -27,6 +27,6 @@
     <string name="listAlreadyExists">A list with this name already exists.</string>
     <string name="deleteTaskListDialogTitle">Delete Task List</string>
     <string name="notesLabel">Type some notes (optional)...</string>
-    <string name="edit_task">Edit task</string>
+    <string name="edit_task">Edit Task</string>
     <string name="edit_list">Edit List</string>
 </resources>

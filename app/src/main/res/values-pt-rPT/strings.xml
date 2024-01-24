@@ -25,6 +25,8 @@
     <string name="reminder">Lembrete (opcional)</string>
     <string name="selectReminder">Adicionar Lembrete</string>
     <string name="listAlreadyExists">Uma lista com este nome já existe.</string>
-    <string name="deleteTaskListDialogTitle">Apagar lista</string>
+    <string name="deleteTaskListDialogTitle">Apagar Lista</string>
     <string name="notesLabel">Escrever notas (opcional)...</string>
+    <string name="edit_task">Editar Tarefa</string>
+    <string name="edit_list">Editar Lista</string>
 </resources>

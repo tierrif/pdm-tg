@@ -46,9 +46,8 @@ class TaskListFragment : Fragment() {
 
         val addTaskButton = requireActivity().findViewById<FloatingActionButton>(R.id.newTodo)
         addTaskButton.setOnClickListener {
-            findNavController().navigate(R.id.action_taskListFragment_to_newTodoFragment2)
+            findNavController().navigate(R.id.action_taskListFragment_to_newTaskFragment)
         }
-
     }
 
     override fun onStart() {
@@ -59,7 +58,7 @@ class TaskListFragment : Fragment() {
 
     private fun onListClick(task: Task) {
         findNavController().navigate(
-            R.id.action_taskListFragment_to_taskFragment,
+            R.id.action_taskListFragment_to_taskEditFragment,
             Bundle().apply {
                 putLong("taskId", task.id)
             }
