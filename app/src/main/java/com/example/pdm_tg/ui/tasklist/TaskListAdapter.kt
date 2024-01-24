@@ -48,9 +48,11 @@ class TaskViewHolder(
             if (task!!.isDone) {
                 val flags = taskName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 taskName.paintFlags = flags
+                taskName.setTextColor(view.resources.getColor(R.color.dark_gray, null))
                 taskDueDate.paintFlags = flags
             } else {
                 taskName.paintFlags = 0
+                taskName.setTextColor(view.resources.getColor(R.color.black, null))
                 taskDueDate.paintFlags = 0
             }
         }
@@ -74,16 +76,17 @@ class TaskViewHolder(
             DateUtils.WEEK_IN_MILLIS,
             DateUtils.FORMAT_ABBREV_RELATIVE,
         )
+
+        // Set the checkbox's checked state.
         checkbox.checkedState =
             if (task.isDone) MaterialCheckBox.STATE_CHECKED else MaterialCheckBox.STATE_UNCHECKED
 
+        // Change task appearance if it's done.
         if (task.isDone) {
             val flags = taskName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             taskName.paintFlags = flags
+            taskName.setTextColor(view.resources.getColor(R.color.dark_gray, null))
             taskDueDate.paintFlags = flags
-        } else {
-            taskName.paintFlags = 0
-            taskDueDate.paintFlags = 0
         }
 
         // If it's overdue, set the text to red.

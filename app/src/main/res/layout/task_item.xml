@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/large_margin"
         android:layout_marginVertical="@dimen/default_margin"
+        android:textColor="@color/black"
         android:text="@string/planned"
         android:textSize="@dimen/mainTextSize"
         app:layout_constraintBaseline_toBottomOf="parent"
