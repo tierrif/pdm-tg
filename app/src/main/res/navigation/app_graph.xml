@@ -12,15 +12,31 @@
         tools:layout="@layout/fragment_main_list">
         <action
             android:id="@+id/action_mainListFragment_to_newTaskFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:destination="@id/newTaskFragment" />
         <action
             android:id="@+id/action_mainListFragment_to_newTaskListFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:destination="@id/newTaskListFragment" />
         <action
             android:id="@+id/action_mainListFragment_to_taskListFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:destination="@id/taskListFragment" />
         <action
             android:id="@+id/action_mainListFragment_to_taskListEditFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:destination="@id/taskListEditFragment" />
     </fragment>
 
@@ -56,10 +72,18 @@
 
         <action
             android:id="@+id/action_taskListFragment_to_taskEditFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:destination="@id/taskEditFragment" />
 
         <action
             android:id="@+id/action_taskListFragment_to_newTaskFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:destination="@id/newTaskFragment" />
 
     </fragment>

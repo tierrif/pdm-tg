@@ -30,13 +30,6 @@ class MainListFragment : Fragment() {
         binding = it
     }.root
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // https://developer.android.com/guide/fragments/animate#kotlin
-        val inflater = TransitionInflater.from(requireContext())
-        exitTransition = inflater.inflateTransition(R.transition.slide_out)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -47,13 +47,6 @@ open class NewTaskListFragment : InheritableFragment<TaskList>() {
      */
     override fun onSave(t: TaskList): Job = Job()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // https://developer.android.com/guide/fragments/animate#kotlin
-        val inflater = TransitionInflater.from(requireContext())
-        enterTransition = inflater.inflateTransition(R.transition.slide_in)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
