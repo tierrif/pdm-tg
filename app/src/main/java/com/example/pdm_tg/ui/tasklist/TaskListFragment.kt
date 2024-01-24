@@ -20,7 +20,7 @@ class TaskListFragment : Fragment() {
     private val viewModel: TaskListViewModel by viewModels()
     private lateinit var binding: FragmentTaskListBinding
     private val args: TaskListFragmentArgs by navArgs()
-    private val adapter = TaskAdapter(::onListClick, ::onTaskStatusChange)
+    private val adapter = TaskAdapter(::onTaskClick, ::onTaskStatusChange)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +56,14 @@ class TaskListFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = args.listName
     }
 
-    private fun onListClick(task: Task) {
+    /**
+     * Fired when a task is clicked. Takes
+     * the user to the task edit fragment
+     * to allow them to edit it.
+     *
+     * @param task The task the user clicked.
+     */
+    private fun onTaskClick(task: Task) {
         findNavController().navigate(
             R.id.action_taskListFragment_to_taskEditFragment,
             Bundle().apply {
@@ -65,6 +72,15 @@ class TaskListFragment : Fragment() {
         )
     }
 
+    /**
+     * Fired when the user checks/unchecks
+     * the checkbox for the task in the list.
+     *
+     * Updates the task and sets it to done/not done according
+     * to the task info provided in the param.
+     *
+     * @param task The task the user changed the status for.
+     */
     private fun onTaskStatusChange(task: Task) {
         lifecycleScope.launch {
             viewModel.updateTask(task)

@@ -19,9 +19,9 @@ class TaskListViewModel(
 
     /**
      * Get the list of tasks according to the
-     * args passed to the fragment.
+     * args passed to the fragment in live data.
      *
-     * @return The list of tasks.
+     * @return The list of tasks in live data.
      */
     fun getTaskList(): LiveData<List<Task>> {
         val db = AppDB(getApplication())
@@ -33,6 +33,12 @@ class TaskListViewModel(
         }
     }
 
+    /**
+     * Update a task.
+     *
+     * @param task The task to update.
+     * @return The job that can be joined upon completion.
+     */
     fun updateTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
         val taskDao = AppDB(getApplication()).taskDao()
         taskDao.update(task)

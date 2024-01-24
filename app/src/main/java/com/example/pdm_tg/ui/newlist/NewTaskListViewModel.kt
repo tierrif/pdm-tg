@@ -16,6 +16,7 @@ class NewTaskListViewModel(app: Application) : AndroidViewModel(app) {
      * database.
      *
      * @param taskName The task name.
+     * @return The job that can be joined upon completion.
      */
     fun newTaskList(taskName: String) = viewModelScope.launch(Dispatchers.IO) {
         val taskList = TaskList(taskName)
@@ -25,6 +26,12 @@ class NewTaskListViewModel(app: Application) : AndroidViewModel(app) {
         taskListDao.insert(taskList)
     }
 
+    /**
+     * Get a task list by its name.
+     *
+     * @param name task list name.
+     * @return The awaitable TaskList.
+     */
     fun getTaskListByName(name: String): Deferred<TaskList?> = viewModelScope.async(Dispatchers.IO) {
         val taskListDao = AppDB(getApplication()).taskListDao()
         return@async taskListDao.getByName(name)

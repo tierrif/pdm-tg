@@ -105,6 +105,8 @@ open class NewTaskFragment : InheritableFragment<Task>() {
     /**
      * Called when the user saves successfully.
      * This won't be called if there is an input error.
+     *
+     * @param t The task to save.
      */
     override fun onSave(t: Task): Job = Job()
 

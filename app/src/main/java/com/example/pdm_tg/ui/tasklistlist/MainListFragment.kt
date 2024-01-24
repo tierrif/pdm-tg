@@ -117,8 +117,17 @@ class MainListFragment : Fragment() {
         )
     }
 
-    private fun onListLongClick(taskList: TaskList?, defaultList: ListType = ListType.CUSTOM) {
-        if (defaultList != ListType.CUSTOM) return
+    /**
+     * List long click listener that allows
+     * the user to edit the list.
+     *
+     * @param taskList The task list the user long pressed.
+     * @param listType The list type.
+     *
+     * @throws NullPointerException When listType is CUSTOM and taskList is null.
+     */
+    private fun onListLongClick(taskList: TaskList?, listType: ListType = ListType.CUSTOM) {
+        if (listType != ListType.CUSTOM) return
 
         findNavController().navigate(
             R.id.action_mainListFragment_to_taskListEditFragment,

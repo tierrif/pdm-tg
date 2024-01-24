@@ -59,7 +59,8 @@ class TaskViewHolder(
     /**
      * Bind a task to the RecyclerView's
      * ViewHolder, setting its name and due
-     * date.
+     * date, as well as its status and setting
+     * decorations for some properties.
      *
      * @param task The task to bind.
      */

@@ -41,6 +41,9 @@ open class NewTaskListFragment : InheritableFragment<TaskList>() {
     /**
      * Called when the user saves successfully.
      * This won't be called if there is an input error.
+     * This should only be implemented by the edit fragment.
+     *
+     * @param t The task list to save.
      */
     override fun onSave(t: TaskList): Job = Job()
 

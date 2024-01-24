@@ -60,6 +60,11 @@ class TaskEditFragment : NewTaskFragment(), MenuProvider {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.edit_task)
     }
 
+    /**
+     * Show a confirmation dialog to delete
+     * a task and delete it from the database
+     * if the user positively responds.
+     */
     private fun deleteTask() {
         AlertDialog.Builder(requireContext())
             .setTitle(resources.getString(R.string.deleteTaskDialogTitle))
