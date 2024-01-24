@@ -117,5 +117,3 @@ class TaskAdapter(
         holder.bind(getItem(position))
     }
 }
-
-
