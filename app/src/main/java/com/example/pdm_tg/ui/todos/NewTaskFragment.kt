@@ -14,7 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -43,11 +45,12 @@ open class NewTaskFragment : InheritableFragment<Task>() {
     protected var pickedDate: Date? = null
         set(pickedDate) {
             pickedDate ?: return let {
+                // Reset if it's null.
                 datePreview.text = resources.getText(R.string.pick)
                 field = null
             }
 
-            // Set the text preview when a date is set.
+            // Set the text preview with a relative date when a date is set.
             datePreview.text = DateUtils.getRelativeDateTimeString(
                 requireContext(),
                 pickedDate.time,
@@ -135,149 +138,36 @@ open class NewTaskFragment : InheritableFragment<Task>() {
             selectedTaskList = taskListsEditText.adapter.getItem(position) as TaskList
         }
 
-        // Build a date picker.
+        // Build the date pickers.
         val datePicker =
             MaterialDatePicker.Builder.datePicker().setTitleText(getString(R.string.selectDate))
                 .build()
-
         val reminderPicker =
             MaterialDatePicker.Builder.datePicker().setTitleText(getString(R.string.selectReminder))
                 .build()
 
-        // Build a time picker.
+        // Build the time pickers.
         val timePicker = MaterialTimePicker.Builder().build()
-
         val timePickerReminder = MaterialTimePicker.Builder().build()
 
-        // Handle when the button for picking a date is pressed.
-        val datePickerButton = requireActivity().findViewById<MaterialButton>(R.id.selectDate)
-        datePickerButton.setOnClickListener {
-            // Show the date picker dialog using the parent fragment manager.
-            try {
-                datePicker.show(parentFragmentManager, "date")
-            } catch (ignore: Exception) {
-            }
-        }
-
-        // Get the date preview TextView so it's edited on date select.
+        // Get the date preview TextViews so they're edited on date/reminder select.
         datePreview = requireActivity().findViewById(R.id.datePreview)
-
-        val reminderPickerButton =
-            requireActivity().findViewById<MaterialButton>(R.id.selectReminder)
-        reminderPickerButton.setOnClickListener {
-            // Show the date picker dialog using the parent fragment manager.
-            try {
-                reminderPicker.show(parentFragmentManager, "reminder")
-            } catch (ignore: Exception) {
-            }
-        }
-
         reminderPreview = requireActivity().findViewById(R.id.reminderPreview)
 
-        // We'll only need a listener for the positive button click. Cancel closes it by default.
-        datePicker.addOnPositiveButtonClickListener {
-            // Get today but at midnight.
-            val now = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
+        // Get the buttons that open the date pickers.
+        val datePickerButton = requireActivity().findViewById<MaterialButton>(R.id.selectDate)
+        val reminderPickerButton =
+            requireActivity().findViewById<MaterialButton>(R.id.selectReminder)
 
-            // Check if the date isn't before today.
-            if (it < now.time.time) {
-                Toast.makeText(
-                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
-                ).show()
+        // Handle the date and time pickers for the due date.
+        handleDatePicker(datePickerButton, datePicker, timePicker, SelectableDateType.DUE_DATE)
+        handleTimePicker(timePicker, SelectableDateType.DUE_DATE)
 
-                return@addOnPositiveButtonClickListener
-            }
+        // Handle the date and time pickers for the reminder.
+        handleDatePicker(reminderPickerButton, reminderPicker,
+            timePickerReminder, SelectableDateType.REMINDER)
+        handleTimePicker(timePickerReminder, SelectableDateType.REMINDER)
 
-            // Save the current state of the date, so it's updated later by the time picker.
-            pickedDate = Date(it)
-
-            // Show the time picker.
-            timePicker.show(parentFragmentManager, "time")
-        }
-
-        reminderPicker.addOnPositiveButtonClickListener {
-            // Get today but at midnight.
-            val now = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-
-            // Check if the date isn't before today.
-            if (it < now.time.time) {
-                Toast.makeText(
-                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
-                ).show()
-
-                pickedReminder = null
-
-                return@addOnPositiveButtonClickListener
-            }
-
-            // Save the current state of the date, so it's updated later by the time picker.
-            pickedReminder = Date(it)
-
-            // Show the time picker.
-            timePickerReminder.show(parentFragmentManager, "remindertime")
-        }
-
-        timePicker.addOnPositiveButtonClickListener {
-            // Use a calendar instance to set the time in the existing date.
-            val calendar = Calendar.getInstance().apply {
-                time = pickedDate!!
-                set(Calendar.HOUR_OF_DAY, timePicker.hour)
-                set(Calendar.MINUTE, timePicker.minute)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-
-            // Check if the time isn't before the current time.
-            if (calendar.time.time < Calendar.getInstance().time.time) {
-                Toast.makeText(
-                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
-                ).show()
-
-                pickedDate = null
-
-                return@addOnPositiveButtonClickListener
-            }
-
-            // Update pickedDate.
-            pickedDate = calendar.time
-        }
-
-        timePicker.addOnNegativeButtonClickListener { pickedDate = null }
-
-        timePickerReminder.addOnPositiveButtonClickListener {
-            // Use a calendar instance to set the time in the existing date.
-            val calendar = Calendar.getInstance().apply {
-                time = pickedReminder!!
-                set(Calendar.HOUR_OF_DAY, timePickerReminder.hour)
-                set(Calendar.MINUTE, timePickerReminder.minute)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }
-
-            // Check if the time isn't before the current time.
-            if (calendar.time.time < Calendar.getInstance().time.time) {
-                Toast.makeText(
-                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
-                ).show()
-
-                return@addOnPositiveButtonClickListener
-            }
-
-            // Update pickedDate.
-            pickedReminder = calendar.time
-        }
-
-        timePickerReminder.addOnNegativeButtonClickListener { pickedReminder = null }
 
         // Handle the task list clear button so that it may be empty on submit.
         val clearButton = requireActivity().findViewById<MaterialButton>(R.id.clearTaskList)
@@ -363,4 +253,101 @@ open class NewTaskFragment : InheritableFragment<Task>() {
             }
         }
     }
+
+    private fun handleDatePicker(
+        datePickerButton: MaterialButton,
+        datePicker: MaterialDatePicker<Long>,
+        timePicker: MaterialTimePicker,
+        dateType: SelectableDateType
+    ) {
+        datePickerButton.setOnClickListener {
+            // Show the date picker dialog using the parent fragment manager.
+            try {
+                datePicker.show(parentFragmentManager, when (dateType) {
+                    SelectableDateType.DUE_DATE -> "time"
+                    SelectableDateType.REMINDER -> "reminder"
+                })
+            } catch (ignore: Exception) {
+            }
+        }
+
+        // We'll only need a listener for the positive button click. Cancel closes it by default.
+        datePicker.addOnPositiveButtonClickListener {
+            // Get today but at midnight.
+            val now = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+
+            // Check if the date isn't before today.
+            if (it < now.time.time) {
+                Toast.makeText(
+                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
+                ).show()
+
+                return@addOnPositiveButtonClickListener
+            }
+
+            // Save the current state of the date, so it's updated later by the time picker.
+            when (dateType) {
+                SelectableDateType.DUE_DATE -> pickedDate = Date(it)
+                SelectableDateType.REMINDER -> pickedReminder = Date(it)
+            }
+
+            // Show the time picker.
+            timePicker.show(parentFragmentManager, when (dateType) {
+                SelectableDateType.DUE_DATE -> "time"
+                SelectableDateType.REMINDER -> "remindertime"
+            })
+        }
+    }
+
+    private fun handleTimePicker(timePicker: MaterialTimePicker, dateType: SelectableDateType) {
+        timePicker.addOnPositiveButtonClickListener {
+            // Use a calendar instance to set the time in the existing date.
+            val calendar = Calendar.getInstance().apply {
+                time = when (dateType) {
+                    SelectableDateType.DUE_DATE -> pickedDate!!
+                    SelectableDateType.REMINDER -> pickedReminder!!
+                }
+
+                set(Calendar.HOUR_OF_DAY, timePicker.hour)
+                set(Calendar.MINUTE, timePicker.minute)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+
+            // Check if the time isn't before the current time.
+            if (calendar.time.time < Calendar.getInstance().time.time) {
+                Toast.makeText(
+                    requireContext(), getString(R.string.badDate), Toast.LENGTH_SHORT
+                ).show()
+
+                when (dateType) {
+                    SelectableDateType.DUE_DATE -> pickedDate = null
+                    SelectableDateType.REMINDER -> pickedReminder = null
+                }
+
+                return@addOnPositiveButtonClickListener
+            }
+
+            // Update the picked date.
+            when (dateType) {
+                SelectableDateType.DUE_DATE -> pickedDate = calendar.time
+                SelectableDateType.REMINDER -> pickedReminder = calendar.time
+            }
+        }
+
+        // Reset the selected date/reminder on close.
+        timePicker.addOnNegativeButtonClickListener {
+            when (dateType) {
+                SelectableDateType.DUE_DATE -> pickedDate = null
+                SelectableDateType.REMINDER -> pickedReminder = null
+            }
+        }
+    }
+
+    private enum class SelectableDateType { DUE_DATE, REMINDER }
 }
