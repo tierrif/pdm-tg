@@ -28,12 +28,6 @@ data class Task(
 )
 
 @Entity
-data class Tag(
-    val description: String,
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-)
-
-@Entity
 data class TaskList(
     val listName: String,
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
@@ -48,27 +42,6 @@ data class TaskList(
         return listName
     }
 }
-
-@Entity(
-    foreignKeys = [ForeignKey(
-        entity = Task::class,
-        parentColumns = ["id"],
-        childColumns = ["taskId"],
-        onDelete = CASCADE,
-        onUpdate = CASCADE,
-    ), ForeignKey(
-        entity = Tag::class,
-        parentColumns = ["id"],
-        childColumns = ["tagId"],
-        onDelete = CASCADE,
-        onUpdate = CASCADE,
-    )]
-)
-data class TaskTag(
-    @ColumnInfo(index = true) val taskId: Int,
-    @ColumnInfo(index = true) val tagId: Int,
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-)
 
 /**
  * This class is required to convert dates in

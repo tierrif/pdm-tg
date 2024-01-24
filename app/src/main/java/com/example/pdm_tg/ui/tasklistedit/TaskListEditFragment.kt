@@ -28,7 +28,6 @@ class TaskListEditFragment : NewTaskListFragment(), MenuProvider {
     override fun fillFields() {
         lifecycleScope.launch {
             val taskList = viewModel.getTaskList().await()
-            Log.d("AAA", taskList.toString())
             name.setText(taskList.listName)
         }
     }
