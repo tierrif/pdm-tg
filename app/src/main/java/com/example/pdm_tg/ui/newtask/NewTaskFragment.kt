@@ -31,6 +31,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -44,7 +46,7 @@ open class NewTaskFragment : InheritableFragment<Task>() {
 
     protected var pickedDate: Date? = null
         set(pickedDate) {
-            pickedDate ?: return let {
+            if (pickedDate === null || !::datePreview.isInitialized) return let {
                 // Reset if it's null.
                 datePreview.text = resources.getText(R.string.pick)
                 field = null
@@ -63,7 +65,7 @@ open class NewTaskFragment : InheritableFragment<Task>() {
 
     protected var pickedReminder: Date? = null
         set(pickedReminder) {
-            pickedReminder ?: return let {
+            if (pickedReminder === null || !::reminderPreview.isInitialized) return let {
                 reminderPreview.text = resources.getText(R.string.pick)
                 field = null
             }
@@ -111,7 +113,7 @@ open class NewTaskFragment : InheritableFragment<Task>() {
      *
      * @param t The task to save.
      */
-    override fun onSave(t: Task): Job = Job()
+    override fun onSave(t: Task): Deferred<Long> = CompletableDeferred()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -200,6 +202,29 @@ open class NewTaskFragment : InheritableFragment<Task>() {
             }
 
             lifecycleScope.launch {
+                // Capture the ID to set the notification ID to the task ID.
+                val id: Long
+                if (isDetails) {
+                    id = onSave(
+                        Task(
+                            taskNameEditText.text.toString(),
+                            selectedTaskList?.id,
+                            pickedDate!!,
+                            pickedReminder,
+                            false,
+                            taskNotesEditText.text.toString(),
+                        )
+                    ).await()
+                } else {
+                    id = viewModel.newTask(
+                        taskNameEditText.text.toString(),
+                        selectedTaskList,
+                        pickedDate!!,
+                        pickedReminder,
+                        taskNotesEditText.text.toString(),
+                    ).await()
+                }
+
                 // Set the reminder if a date was provided.
                 if (pickedReminder !== null) {
                     // Retrieve the Alarm Manager service.
@@ -213,45 +238,24 @@ open class NewTaskFragment : InheritableFragment<Task>() {
                     // Create the pending intent for the broadcast.
                     val pendingIntent = PendingIntent.getBroadcast(
                         requireContext(),
-                        0,
+                        id.toInt(),
                         intent,
-                        PendingIntent.FLAG_IMMUTABLE
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                     )
 
                     // Create another intent but for the clock icon that displays in the status bar.
                     val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
                     val basicPendingIntent = PendingIntent.getActivity(
                         requireContext(),
-                        0,
+                        id.toInt(),
                         mainActivityIntent,
-                        PendingIntent.FLAG_IMMUTABLE
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                     )
 
                     // Set the alarm clock info and the pending intent for the alarm manager.
                     val clockInfo =
                         AlarmManager.AlarmClockInfo(pickedReminder!!.time, basicPendingIntent)
                     alarmManager.setAlarmClock(clockInfo, pendingIntent)
-                }
-
-                if (isDetails) {
-                    onSave(
-                        Task(
-                            taskNameEditText.text.toString(),
-                            selectedTaskList?.id,
-                            pickedDate!!,
-                            pickedReminder,
-                            false,
-                            taskNotesEditText.text.toString(),
-                        )
-                    ).join()
-                } else {
-                    viewModel.newTask(
-                        taskNameEditText.text.toString(),
-                        selectedTaskList,
-                        pickedDate!!,
-                        pickedReminder,
-                        taskNotesEditText.text.toString(),
-                    ).join()
                 }
 
                 findNavController().popBackStack()

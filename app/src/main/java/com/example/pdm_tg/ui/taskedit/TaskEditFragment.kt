@@ -13,7 +13,9 @@ import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.R
 import com.example.pdm_tg.db.Task
 import com.example.pdm_tg.ui.newtask.NewTaskFragment
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class TaskEditFragment : NewTaskFragment(), MenuProvider {
@@ -35,9 +37,10 @@ class TaskEditFragment : NewTaskFragment(), MenuProvider {
         }
     }
 
-    override fun onSave(t: Task): Job {
+    override fun onSave(t: Task) = lifecycleScope.async {
         t.id = args.taskId
-        return viewModel.updateTask(t)
+        viewModel.updateTask(t).join()
+        return@async t.id
     }
 
 
@@ -59,7 +62,8 @@ class TaskEditFragment : NewTaskFragment(), MenuProvider {
     override fun onStart() {
         super.onStart()
         requireActivity().addMenuProvider(this, viewLifecycleOwner)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.edit_task)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            resources.getString(R.string.edit_task)
     }
 
     /**

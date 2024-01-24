@@ -22,12 +22,15 @@ class NewTaskViewModel(app: Application) : AndroidViewModel(app) {
      * @param dueDate The date this task is due.
      * @param reminderDate The date for a set reminder (can be null if none).
      * @param notes Notes for this task (can be null if none).
+     * @return The awaitable task.
      */
     fun newTask(
         taskName: String, taskList: TaskList?, dueDate: Date, reminderDate: Date?, notes: String?
-    ) = viewModelScope.launch(Dispatchers.IO) {
+    ) = viewModelScope.async(Dispatchers.IO) {
         val taskDao = AppDB(getApplication()).taskDao()
-        taskDao.insert(Task(taskName, taskList?.id, dueDate, reminderDate, false, notes))
+        return@async taskDao.insert(Task(
+            taskName, taskList?.id, dueDate, reminderDate, false, notes
+        ))
     }
 
     /**
