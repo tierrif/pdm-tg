@@ -1,4 +1,4 @@
-package com.example.pdm_tg.ui.task
+package com.example.pdm_tg.ui.taskedit
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.R
 import com.example.pdm_tg.db.Task
-import com.example.pdm_tg.ui.todos.NewTaskFragment
+import com.example.pdm_tg.ui.newtask.NewTaskFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 

@@ -1,4 +1,4 @@
-package com.example.pdm_tg.ui.tasklistlist
+package com.example.pdm_tg.ui.mainlist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

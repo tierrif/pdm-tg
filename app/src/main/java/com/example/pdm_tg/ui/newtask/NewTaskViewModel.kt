@@ -1,4 +1,4 @@
-package com.example.pdm_tg.ui.todos
+package com.example.pdm_tg.ui.newtask
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

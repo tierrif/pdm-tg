@@ -1,7 +1,6 @@
-package com.example.pdm_tg.ui.newlist
+package com.example.pdm_tg.ui.newtasklist
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

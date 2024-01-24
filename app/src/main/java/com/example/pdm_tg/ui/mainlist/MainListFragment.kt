@@ -1,7 +1,6 @@
-package com.example.pdm_tg.ui.tasklistlist
+package com.example.pdm_tg.ui.mainlist
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View

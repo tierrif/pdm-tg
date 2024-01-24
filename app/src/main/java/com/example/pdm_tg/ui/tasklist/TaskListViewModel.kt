@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.pdm_tg.db.AppDB
 import com.example.pdm_tg.db.Task
-import com.example.pdm_tg.ui.tasklistlist.MainListFragment.ListType.*
+import com.example.pdm_tg.ui.mainlist.MainListFragment.ListType.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

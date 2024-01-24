@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.R
 import com.example.pdm_tg.db.TaskList
-import com.example.pdm_tg.ui.newlist.NewTaskListFragment
+import com.example.pdm_tg.ui.newtasklist.NewTaskListFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 

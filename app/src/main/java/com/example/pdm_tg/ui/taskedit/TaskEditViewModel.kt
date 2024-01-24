@@ -1,4 +1,4 @@
-package com.example.pdm_tg.ui.task
+package com.example.pdm_tg.ui.taskedit
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
