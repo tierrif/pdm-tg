@@ -39,7 +39,9 @@ class TaskListEditFragment : NewTaskListFragment(), MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.task_menu, menu)
+        if (menu.findItem(R.id.delete) === null) {
+            menuInflater.inflate(R.menu.task_menu, menu)
+        }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
