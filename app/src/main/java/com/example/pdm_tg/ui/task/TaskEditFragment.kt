@@ -48,7 +48,7 @@ class TaskEditFragment : NewTaskFragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == R.id.delete) {
+        if (menuItem.itemId == R.id.delete && context !== null) {
             deleteTask()
             return true
         }
