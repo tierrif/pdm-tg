@@ -29,4 +29,5 @@
     <string name="notesLabel">Type some notes (optional)...</string>
     <string name="edit_task">Edit Task</string>
     <string name="edit_list">Edit List</string>
+    <string name="taskReminder">Task Reminder</string>
 </resources>

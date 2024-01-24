@@ -116,31 +116,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    <!-- TODO: Se houver tempo, fazer FAB animado com 2 botões assim -->
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newList"
-        android:layout_width="@dimen/mini_fab_size"
-        android:layout_height="@dimen/mini_fab_size"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/mini_fab_margin"
-        android:contentDescription="@string/new_list"
-        app:layout_constraintBottom_toTopOf="@id/newTodo"
-        app:layout_constraintEnd_toEndOf="@+id/newTodo"
-        app:layout_constraintStart_toStartOf="@+id/newTodo"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newTodo"
-        android:layout_width="@dimen/mini_fab_size"
-        android:layout_height="@dimen/mini_fab_size"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/mini_fab_margin"
-        android:contentDescription="@string/new_to_do"
-        app:layout_constraintBottom_toTopOf="@id/newTodoOrList"
-        app:layout_constraintEnd_toEndOf="@+id/newTodoOrList"
-        app:layout_constraintStart_toStartOf="@+id/newTodoOrList"
-        app:srcCompat="@android:drawable/ic_dialog_map" />-->
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/testButton"
         android:layout_width="wrap_content"

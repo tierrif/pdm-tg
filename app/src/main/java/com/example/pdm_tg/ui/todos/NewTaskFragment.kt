@@ -290,7 +290,7 @@ open class NewTaskFragment : InheritableFragment<Task>() {
         taskNameEditText =
             requireActivity().findViewById(R.id.taskNameEditText)
 
-        //Get task notes
+        // Get task notes.
         taskNotesEditText = requireActivity().findViewById(R.id.taskNotes)
 
         // Add a listener for the save button and verify if all data is filled.
@@ -303,16 +303,25 @@ open class NewTaskFragment : InheritableFragment<Task>() {
             }
 
             lifecycleScope.launch {
+                // Set the reminder if a date was provided.
                 if (pickedReminder !== null) {
+                    // Retrieve the Alarm Manager service.
                     val alarmManager =
                         requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+                    // Create the intent that will contain the task name which is being sent.
                     val intent = Intent(requireContext(), ReminderReceiver::class.java)
+                    intent.putExtra("taskName", taskNameEditText.text.toString())
+
+                    // Create the pending intent for the broadcast.
                     val pendingIntent = PendingIntent.getBroadcast(
                         requireContext(),
                         0,
                         intent,
                         PendingIntent.FLAG_IMMUTABLE
                     )
+
+                    // Create another intent but for the clock icon that displays in the status bar.
                     val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
                     val basicPendingIntent = PendingIntent.getActivity(
                         requireContext(),
@@ -320,6 +329,8 @@ open class NewTaskFragment : InheritableFragment<Task>() {
                         mainActivityIntent,
                         PendingIntent.FLAG_IMMUTABLE
                     )
+
+                    // Set the alarm clock info and the pending intent for the alarm manager.
                     val clockInfo =
                         AlarmManager.AlarmClockInfo(pickedReminder!!.time, basicPendingIntent)
                     alarmManager.setAlarmClock(clockInfo, pendingIntent)
