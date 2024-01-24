@@ -23,9 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
+        android:backgroundTint="@color/appColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/todo_list"
+        app:tint="@android:color/white"
         android:contentDescription="@string/new_to_do" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="androidPurple">#6750a4</color>
+    <color name="appColor">#375EC8</color>
+    <color name="appColorSecondary">#5F7ED3</color>
     <color name="light_gray">#eeeeee</color>
     <color name="dark_gray">#777777</color>
     <color name="red">#FF3021</color>
