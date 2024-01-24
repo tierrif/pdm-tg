@@ -14,13 +14,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.DatePicker
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.pdm_tg.InheritableFragment
 import com.example.pdm_tg.MainActivity
 import com.example.pdm_tg.R
@@ -41,6 +40,7 @@ open class NewTaskFragment : InheritableFragment<Task>() {
     private lateinit var binding: FragmentNewTaskBinding
     private val viewModel: NewTaskViewModel by viewModels()
     private lateinit var taskListsEditText: AutoCompleteTextView
+    private val args: NewTaskFragmentArgs by navArgs()
 
     protected var pickedDate: Date? = null
         set(pickedDate) {
@@ -131,6 +131,11 @@ open class NewTaskFragment : InheritableFragment<Task>() {
 
             // If this class is inherited, the field values can be filled.
             fillFields()
+
+            // Set the task list if the user comes from a task list fragment.
+            if (args.taskListId != -1L) {
+                selectedTaskList = viewModel.getTaskListById(args.taskListId).await()
+            }
         }
 
         // Listen to changes on the dropdown so they're stored in memory.

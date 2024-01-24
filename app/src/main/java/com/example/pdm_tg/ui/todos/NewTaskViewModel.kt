@@ -39,4 +39,17 @@ class NewTaskViewModel(app: Application) : AndroidViewModel(app) {
         val taskListDao = AppDB(getApplication()).taskListDao()
         return@async taskListDao.get()
     }
+
+    /**
+     * Get a task list by its ID.
+     *
+     * @param taskListId The ID of the task list to get.
+     * @return An awaitable task list.
+     */
+    fun getTaskListById(
+        taskListId: Long
+    ): Deferred<TaskList?> = viewModelScope.async(Dispatchers.IO) {
+        val taskListDao = AppDB(getApplication()).taskListDao()
+        return@async taskListDao.getById(taskListId)
+    }
 }

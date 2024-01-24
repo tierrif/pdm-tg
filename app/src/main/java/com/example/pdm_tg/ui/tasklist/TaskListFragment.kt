@@ -46,7 +46,12 @@ class TaskListFragment : Fragment() {
 
         val addTaskButton = requireActivity().findViewById<FloatingActionButton>(R.id.newTodo)
         addTaskButton.setOnClickListener {
-            findNavController().navigate(R.id.action_taskListFragment_to_newTaskFragment)
+            findNavController().navigate(
+                R.id.action_taskListFragment_to_newTaskFragment,
+                Bundle().apply {
+                    putLong("taskListId", args.listId)
+                }
+            )
         }
     }
 

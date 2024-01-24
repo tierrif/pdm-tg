@@ -43,7 +43,14 @@
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.example.pdm_tg.ui.todos.NewTaskFragment"
-        android:label="@string/new_to_do" />
+        android:label="@string/new_to_do">
+
+        <argument
+            android:name="taskListId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/newTaskListFragment"
