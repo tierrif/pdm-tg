@@ -254,6 +254,14 @@ open class NewTaskFragment : InheritableFragment<Task>() {
         }
     }
 
+    /**
+     * Handle a date picker for this view.
+     *
+     * @param datePickerButton The button responsible for opening the date picker.
+     * @param datePicker The date picker to handle.
+     * @param timePicker The time picker that corresponds to the date type being handled.
+     * @param dateType The type of date being handled (reminder, due date).
+     */
     private fun handleDatePicker(
         datePickerButton: MaterialButton,
         datePicker: MaterialDatePicker<Long>,
@@ -304,6 +312,12 @@ open class NewTaskFragment : InheritableFragment<Task>() {
         }
     }
 
+    /**
+     * Handle a time picker for this view.
+     *
+     * @param timePicker The time picker to handle.
+     * @param dateType The type of date being handled (reminder, due date).
+     */
     private fun handleTimePicker(timePicker: MaterialTimePicker, dateType: SelectableDateType) {
         timePicker.addOnPositiveButtonClickListener {
             // Use a calendar instance to set the time in the existing date.
@@ -349,5 +363,9 @@ open class NewTaskFragment : InheritableFragment<Task>() {
         }
     }
 
+    /**
+     * Date type being handled in a
+     * determined date picker.
+     */
     private enum class SelectableDateType { DUE_DATE, REMINDER }
 }
